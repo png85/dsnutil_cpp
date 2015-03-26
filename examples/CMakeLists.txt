@@ -1,5 +1,5 @@
 
-list(APPEND example_BINS "finally" "pretty_print" "parallel_for" "threadpool" "singleton")
+list(APPEND example_BINS "finally" "pretty_print" "parallel_for" "threadpool" "singleton" "map_sort")
 
 foreach(example ${example_BINS})
     add_executable(${example} "${example}.cpp" ${dsnutil_cpp_HDRS})
