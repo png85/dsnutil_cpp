@@ -10,7 +10,7 @@
  * @param func Worker function (can be lambda)
  * @param numThreads Max # of threads to use; clamped to # of CPU cores
  */
-void parallel_for(const size_t size, std::function<void (const size_t)> func, unsigned numThreads)
+void dsn::parallel_for(const size_t size, std::function<void (const size_t)> func, unsigned numThreads)
 {
     // clamp numThreads to # of CPU cores
     numThreads = std::min(numThreads, std::thread::hardware_concurrency());
