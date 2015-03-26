@@ -4,7 +4,7 @@
 #include <dsnutil/threadpool.h>
 
 int main() {
-    ThreadPool pool(std::thread::hardware_concurrency());
+    dsn::ThreadPool pool(std::thread::hardware_concurrency());
     std::vector<std::future<int> > results;
 
     for (auto i=0; i<32; ++i) {

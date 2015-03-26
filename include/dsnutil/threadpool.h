@@ -11,6 +11,8 @@
 #include <functional>
 #include <stdexcept>
 
+namespace dsn {
+
 class ThreadPool {
 public:
     ThreadPool(size_t size=std::thread::hardware_concurrency());
@@ -44,5 +46,7 @@ private:
     std::condition_variable condition;
     bool m_stop{false};
 };
+
+}
 
 #endif
