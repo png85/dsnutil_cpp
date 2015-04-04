@@ -1,9 +1,17 @@
 project(dsnutil-cpp)
 cmake_minimum_required(VERSION 2.8)
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-modules/")
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
-find_package(Threads)
+option(dsnutil_cpp_WITH_LOG4CPP "Enable support for logging with log4cpp" ON)
+if(dsnutil_cpp_WITH_LOG4CPP)
+    find_package(Log4cpp REQUIRED)
+    include_directories(${LOG4CPP_INCLUDE_DIR})
+    add_definitions(-DWITH_LOG4CPP)
+endif(dsnutil_cpp_WITH_LOG4CPP)
+
+find_package(Threads REQUIRED)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     add_definitions(-std=c++11)
