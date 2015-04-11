@@ -5,6 +5,10 @@
 
 #include <sstream>
 
+#ifdef WITH_BOOST_LOG
+#include <boost/log/trivial.hpp>
+#endif
+
 #include <dsnutil/pretty_print.h>
 
 int main() {
@@ -33,6 +37,16 @@ int main() {
        << "list<int>   : " << l << std::endl
        << "list<string>: " << l2 << std::endl;
     std::cout << std::endl << "Testing pretty printing into std::stringstream:" << std::endl << ss.str();
+
+#ifdef WITH_BOOST_LOG
+    BOOST_LOG_TRIVIAL(debug) << "Testing pretty printing to boost::log:";
+    BOOST_LOG_TRIVIAL(debug) << "Empty vector: " << v0;
+    BOOST_LOG_TRIVIAL(debug) << "Vector      : " << v1;
+    BOOST_LOG_TRIVIAL(debug) << "Array       : " << a0;
+    BOOST_LOG_TRIVIAL(debug) << "Map         : " << m;
+    BOOST_LOG_TRIVIAL(debug) << "list<int>   : " << l;
+    BOOST_LOG_TRIVIAL(debug) << "list<string>: " << l2;
+#endif
 
     return 0;
 }

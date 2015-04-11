@@ -1,5 +1,8 @@
 
 list(APPEND example_BINS "finally" "pretty_print" "parallel_for" "threadpool" "singleton" "map_sort" "hexdump")
+if(dsnutil_cpp_WITH_BOOST_LOG)
+    list(APPEND example_BINS "boost_log-base")
+endif(dsnutil_cpp_WITH_BOOST_LOG)
 
 foreach(example ${example_BINS})
     add_executable(${example} "${example}.cpp" ${dsnutil_cpp_HDRS})
@@ -7,6 +10,10 @@ foreach(example ${example_BINS})
     if(dsnutil_cpp_WITH_LOG4CPP)
         target_link_libraries(${example} ${LOG4CPP_LIBRARIES})
     endif(dsnutil_cpp_WITH_LOG4CPP)
+    if(dsnutil_cpp_WITH_BOOST_LOG)
+        target_link_libraries(${example} dsnutil_cpp-log)
+        target_link_libraries(${example} ${Boost_LIBRARIES} boost_log_setup)
+    endif(dsnutil_cpp_WITH_BOOST_LOG)
 
     install(TARGETS ${example} RUNTIME DESTINATION examples)
 endforeach(example)

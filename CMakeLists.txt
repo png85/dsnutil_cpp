@@ -11,19 +11,32 @@ if(dsnutil_cpp_WITH_LOG4CPP)
     add_definitions(-DWITH_LOG4CPP)
 endif(dsnutil_cpp_WITH_LOG4CPP)
 
+option(dsnutil_cpp_WITH_BOOST_LOG "Enable support for boost::log based logging" ON)
+if(dsnutil_cpp_WITH_BOOST_LOG)
+    find_package(Boost 1.54 REQUIRED COMPONENTS system thread log)
+    include_directories(${Boost_INCLUDE_DIRS})
+    add_definitions(-DBOOST_ALL_DYN_LINK -DWITH_BOOST_LOG)
+endif(dsnutil_cpp_WITH_BOOST_LOG)
+
 find_package(Threads REQUIRED)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     add_definitions(-std=c++11)
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
-file(GLOB dsnutil_cpp_HDRS include/dsnutil/*.h)
+file(GLOB_RECURSE dsnutil_cpp_HDRS include/dsnutil/*.h)
 file(GLOB dsnutil_cpp_SRCS src/*.cpp)
 
 add_library(dsnutil_cpp STATIC ${dsnutil_cpp_SRCS} ${dsnutil_cpp_HDRS})
 
 install(TARGETS dsnutil_cpp ARCHIVE DESTINATION lib)
 install(DIRECTORY include/dsnutil DESTINATION include)
+
+if(dsnutil_cpp_WITH_BOOST_LOG)
+    file(GLOB dsnutil_cpp_log_SRCS src/log/*.cpp)
+    add_library(dsnutil_cpp-log STATIC ${dsnutil_cpp_log_SRCS} ${dsnutil_cpp_HDRS})
+    install(TARGETS dsnutil_cpp-log ARCHIVE DESTINATION lib)
+endif(dsnutil_cpp_WITH_BOOST_LOG)
 
 set(CPACK_PACKAGE_VERSION_MAJOR 0)
 set(CPACK_PACKAGE_VERSION_MINOR 99)
