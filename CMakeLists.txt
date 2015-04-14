@@ -4,6 +4,23 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+if(CMAKE_COMPILER_IS_GNUCXX)
+    include(CheckCXXCompilerFlag)
+    check_cxx_compiler_flag("-std=c++11" GCC_stdcxx11)
+    check_cxx_compiler_flag("-std=c++0x" GCC_stdcxx0x)
+
+    if(GCC_stdcxx11)
+        message(STATUS "Using -std=c++11 to enable C++11 in GCC")
+        add_definitions(-std=c++11)
+    elseif(GCC_stdcxx0x)
+        message(STATUS "Using -std=c++0x to enable C++11 in GCC")
+        add_definitions(-std=c++0x)
+    else()
+        message(WARNING "Failed to determine C++11 flag for GCC :-(")
+    endif()
+endif(CMAKE_COMPILER_IS_GNUCXX)
+
+
 find_package(Log4cpp)
 if(LOG4CPP_FOUND)
     option(dsnutil_cpp_WITH_LOG4CPP "Enable support for logging with log4cpp" ON)
@@ -23,10 +40,6 @@ if(Boost_FOUND AND dsnutil_cpp_WITH_BOOST_LOG)
 endif(Boost_FOUND AND dsnutil_cpp_WITH_BOOST_LOG)
 
 find_package(Threads REQUIRED)
-
-if(CMAKE_COMPILER_IS_GNUCXX)
-    add_definitions(-std=c++11)
-endif(CMAKE_COMPILER_IS_GNUCXX)
 
 file(GLOB_RECURSE dsnutil_cpp_HDRS include/dsnutil/*.h)
 file(GLOB dsnutil_cpp_SRCS src/*.cpp)
