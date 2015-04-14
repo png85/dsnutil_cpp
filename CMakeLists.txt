@@ -47,7 +47,10 @@ set(CPACK_PACKAGE_VERSION_MINOR 99)
 set(CPACK_PACKAGE_VERSION_PATCH 2)
 include(CPack)
 
+include(CTest)
+enable_testing()
 option(dsnutil_cpp_WITH_EXAMPLES "Build demo executables" ON)
 if(dsnutil_cpp_WITH_EXAMPLES)
     add_subdirectory(examples)
 endif(dsnutil_cpp_WITH_EXAMPLES)
+

@@ -14,6 +14,6 @@ foreach(example ${example_BINS})
         target_link_libraries(${example} dsnutil_cpp-log)
         target_link_libraries(${example} ${Boost_LIBRARIES} boost_log_setup)
     endif(dsnutil_cpp_WITH_BOOST_LOG)
-
+    add_test("examples/${example}" ${example})
     install(TARGETS ${example} RUNTIME DESTINATION examples)
 endforeach(example)
