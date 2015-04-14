@@ -1,0 +1,14 @@
+language: cpp
+compiler:
+  - gcc
+
+script:
+  - mkdir build
+  - cd build
+  - cmake ..
+  - cmake --build . --target all --
+  - cmake --build . --target package --
+
+after_script:
+  - ctest
+  - cmake --build . --target Continous
