@@ -98,3 +98,8 @@ endif(dsnutil_cpp_WITH_EXAMPLES)
 
 # Add target for API docs if Doxygen is available
 include(DocTarget)
+if(DOXYGEN_FOUND)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile DESTINATION share/doc/libdsnutil)
+endif(DOXYGEN_FOUND)
+
+install(FILES README.md DESTINATION share/doc/libdsnutil)
