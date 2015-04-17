@@ -1,7 +1,7 @@
 
 list(APPEND example_BINS "finally" "pretty_print" "parallel_for" "threadpool" "singleton" "map_sort" "hexdump")
 if(dsnutil_cpp_WITH_BOOST_LOG)
-    list(APPEND example_BINS "boost_log-base")
+    list(APPEND example_BINS "boost_log-base" "boost_log-stream_interceptor")
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
 foreach(example ${example_BINS})
