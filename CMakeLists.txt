@@ -82,7 +82,7 @@ endif(dsnutil_cpp_WITH_BOOST_LOG)
 # Version info for source/binary packages
 set(CPACK_PACKAGE_VERSION_MAJOR 0)
 set(CPACK_PACKAGE_VERSION_MINOR 99)
-set(CPACK_PACKAGE_VERSION_PATCH 2)
+set(CPACK_PACKAGE_VERSION_PATCH 3)
 include(CPack)
 
 
