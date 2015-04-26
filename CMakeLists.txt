@@ -45,7 +45,7 @@ endif(dsnutil_cpp_WITH_LOG4CPP AND LOG4CPP_FOUND)
 
 #
 # Look for Boost >= 1.54
-find_package(Boost 1.54 REQUIRED COMPONENTS system thread log log_setup)
+find_package(Boost 1.54 REQUIRED COMPONENTS system thread log log_setup date_time chrono filesystem)
 if(Boost_FOUND)
     option(dsnutil_cpp_WITH_BOOST_LOG "Enable support for boost::log based logging API" ON)
 endif(Boost_FOUND)
