@@ -102,6 +102,7 @@ protected:
     virtual std::streamsize xsputn(const char_type *__s, std::streamsize __n) {
         m_newstream->write(__s, __n);
         BOOST_LOG_SEV(m_logger, m_severity) << "[" << m_name << "] " << __s;
+		return __n;
     }
 
     virtual std::streambuf::int_type overflow(std::streambuf::int_type __c) {
