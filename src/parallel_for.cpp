@@ -1,4 +1,10 @@
+#ifdef WIN32
+#define NOMINMAX
+#endif
+
+#include <algorithm>
 #include <vector>
+
 #include <dsnutil/parallel_for.h>
 
 /** @brief Parallelized loop
