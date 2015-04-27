@@ -4,7 +4,7 @@ using namespace dsn;
 
 ThreadPool::ThreadPool(size_t size)
 {
-    for (size_t i=0; i<size; ++i) {
+    for (size_t i = 0; i < size; ++i) {
         workers.emplace_back([this] {
             for (;;) {
                 std::unique_lock<std::mutex> lock(this->queue_mutex);
@@ -23,12 +23,10 @@ ThreadPool::ThreadPool(size_t size)
     }
 }
 
-
 ThreadPool::~ThreadPool()
 {
     stop();
 }
-
 
 void ThreadPool::stop()
 {

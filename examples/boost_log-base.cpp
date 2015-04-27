@@ -4,8 +4,7 @@
 #include <dsnutil/log/init.h>
 #include <dsnutil/log/base.h>
 
-class TestA : public dsn::log::Base<TestA>
-{
+class TestA : public dsn::log::Base<TestA> {
 public:
     TestA()
     {
@@ -18,8 +17,7 @@ public:
     }
 };
 
-class TestB : public dsn::log::Base<TestB>
-{
+class TestB : public dsn::log::Base<TestB> {
 public:
     TestB()
     {

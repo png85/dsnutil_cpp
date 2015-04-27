@@ -16,14 +16,14 @@
  * @param func Worker function (can be lambda)
  * @param numThreads Max # of threads to use; clamped to # of CPU cores
  */
-void dsn::parallel_for(const size_t size, std::function<void (const size_t)> func, unsigned numThreads)
+void dsn::parallel_for(const size_t size, std::function<void(const size_t)> func, unsigned numThreads)
 {
     // clamp numThreads to # of CPU cores
     numThreads = std::min(numThreads, std::thread::hardware_concurrency());
     std::vector<std::thread> threads;
 
     // start worker threads
-    for (size_t threadID=0; threadID < numThreads; ++threadID) {
+    for (size_t threadID = 0; threadID < numThreads; ++threadID) {
         auto thread_func = [&]() {
             for (size_t i = threadID; i<size; i += numThreads)
                 func(i);

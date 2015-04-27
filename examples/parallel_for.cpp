@@ -8,7 +8,8 @@
 
 #include <dsnutil/parallel_for.h>
 
-int main() {
+int main()
+{
     size_t size = 1e8;
     std::vector<double> v(size);
 

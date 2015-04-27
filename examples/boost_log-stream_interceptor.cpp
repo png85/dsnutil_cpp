@@ -7,7 +7,8 @@
 #include <dsnutil/log/init.h>
 #include <dsnutil/log/stream_interceptor.h>
 
-int main() {
+int main()
+{
     dsn::log::init();
 
     boost::log::sources::severity_logger<boost::log::trivial::severity_level> log;

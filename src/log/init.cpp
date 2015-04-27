@@ -12,16 +12,17 @@
  * Sets up some basic default parameters for the boost::log based logging environment and registers
  * a formatter for boost::log::trivial::severity_level values.
  */
-void dsn::log::init(const std::string& filename) {
+void dsn::log::init(const std::string& filename)
+{
     boost::log::register_simple_formatter_factory<boost::log::trivial::severity_level, char>("Severity");
     boost::log::add_common_attributes();
 
-    static const std::string format{"%TimeStamp% %Severity% (P:%ProcessID%,T:%ThreadID%) (%Class%@%This%): %Message%"};
+    static const std::string format{ "%TimeStamp% %Severity% (P:%ProcessID%,T:%ThreadID%) (%Class%@%This%): %Message%" };
 
     boost::log::add_console_log(std::clog, boost::log::keywords::format = format);
     BOOST_LOG_TRIVIAL(trace) << "Initialized default console log settings";
 
-    if(filename.length() > 0) {
+    if (filename.length() > 0) {
         // setup default logfile with given name/pattern, rotation at 1GB size or daily at 00:00:00
         boost::log::add_file_log(boost::log::keywords::file_name = filename,
                                  boost::log::keywords::format = format,

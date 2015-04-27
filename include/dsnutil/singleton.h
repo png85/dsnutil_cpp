@@ -10,12 +10,14 @@ namespace dsn {
 ///
 /// This template can be used to implement the "singleton" design pattern
 /// on any class.
-template <class Derived> class Singleton {
+template <class Derived>
+class Singleton {
 public:
     /// \brief Access singleton instance
     ///
     /// Returns a reference to the instance of this singleton.
-    static Derived& getInstance() {
+    static Derived& getInstance()
+    {
         static Derived instance;
         return instance;
     }
@@ -35,7 +37,6 @@ private:
     /// singleton from being created through object assignments!
     Singleton(const Singleton&) {}
 };
-
 }
 
 #endif // !SINGLETON_HH

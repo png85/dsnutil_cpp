@@ -2,7 +2,8 @@
 #include <iostream>
 #include <dsnutil/finally.h>
 
-int main(void) {
+int main(void)
+{
     int r = EXIT_FAILURE;
 
     try {

@@ -24,7 +24,8 @@ namespace dsn {
  *
  * @version 1.0 Initial implementation
  */
-template <class Derived> class LoggingBase {
+template <class Derived>
+class LoggingBase {
 public:
     /**
      * @brief Initialize base logging API
@@ -34,7 +35,9 @@ public:
      * INFO for all others). By default all log messages are sent to the std::clog standard output
      * stream.
      */
-    LoggingBase() : log(log4cpp::Category::getInstance(typeid(Derived).name())) {
+    LoggingBase()
+        : log(log4cpp::Category::getInstance(typeid(Derived).name()))
+    {
         // initialize default log appender to std::clog
         std::string className = typeid(Derived).name();
         try {
@@ -57,7 +60,7 @@ public:
             throw;
         }
 
-        // setup minimum logging priority depending on build type
+// setup minimum logging priority depending on build type
 #ifdef NDEBUG
         log.setPriority(log4cpp::Priority::INFO);
 #else
@@ -66,12 +69,11 @@ public:
         log << log4cpp::Priority::DEBUG << "Initialized default logging settings!";
     }
 
-
-    ~LoggingBase() {
+    ~LoggingBase()
+    {
         log << log4cpp::Priority::DEBUG << "Removing all log appenders...";
         log.removeAllAppenders();
     }
-
 
     /**
      * @brief Copy logging settings from another log4cpp::Category
@@ -87,7 +89,8 @@ public:
      *
      * @param other Reference to the category from which the settings shall be copied
      */
-    void copyLogSettings(log4cpp::Category& other) {
+    void copyLogSettings(log4cpp::Category& other)
+    {
         log << log4cpp::Priority::DEBUG << "Copying logging settings from " << other.getName() << "...";
 
         // copy all logging appenders from the other category, adding them by reference
@@ -111,7 +114,6 @@ protected:
      */
     log4cpp::Category& log;
 };
-
 }
 
 #endif // LOGGINGBASE_H

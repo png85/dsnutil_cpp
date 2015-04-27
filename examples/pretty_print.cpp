@@ -11,14 +11,15 @@
 
 #include <dsnutil/pretty_print.h>
 
-int main() {
+int main()
+{
     std::vector<int> v0;
-    std::vector<int> v1{1, 2, 3, 4, 5};
-    std::array<double, 3> a0{ {0.1, 0.2, 0.3} };
+    std::vector<int> v1{ 1, 2, 3, 4, 5 };
+    std::array<double, 3> a0{ { 0.1, 0.2, 0.3 } };
     std::map<std::string, int> m;
     m["foo"] = 23;
     m["bar"] = 42;
-    std::list<int> l{5, 4, 3, 2, 1};
+    std::list<int> l{ 5, 4, 3, 2, 1 };
     std::list<std::string> l2{ "foo", "bar", "bla", "baz" };
 
     std::cout << "Testing pretty printing on std::cout:" << std::endl;

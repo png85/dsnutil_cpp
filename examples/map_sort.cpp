@@ -5,7 +5,8 @@
 #include <dsnutil/map_sort.h>
 #include <dsnutil/pretty_print.h>
 
-int main(void) {
+int main(void)
+{
     std::map<std::string, float> stocks = {
         std::pair<std::string, float>("YHOO", 5.0f),
         std::pair<std::string, float>("MSFT", 7.5f),
@@ -15,12 +16,11 @@ int main(void) {
         std::pair<std::string, float>("ACME", 1.5f)
     };
 
-    std::function<void (std::string)> vector_dump = [&](std::string k) {
+    std::function<void(std::string)> vector_dump = [&](std::string k) {
         std::cout << "stocks['" << k << "'] = " << stocks[k] << std::endl;
     };
 
     std::cout << "Unsorted map at start: " << stocks << std::endl;
-
 
     // extract map keys into existing vector
     std::vector<std::string> k1;
@@ -28,11 +28,9 @@ int main(void) {
     std::cout << "Unsorted map keys in existing vector: " << k1 << "; map data is:" << std::endl;
     std::for_each(k1.begin(), k1.end(), vector_dump);
 
-
     // extract map keys into new vector
     std::cout << "Unsorted map keys in new vector: " << dsn::map_keys(stocks) << std::endl;
     assert(k1 == dsn::map_keys(stocks));
-
 
     // sort map keys into existing vector
     std::vector<std::string> k2;
@@ -40,12 +38,11 @@ int main(void) {
     std::cout << "Sorted map keys in existing vector: " << k2 << "; map data is:" << std::endl;
     std::for_each(k2.begin(), k2.end(), vector_dump);
 
-
     // sort map keys into new vector
     std::cout << "Sorted map keys in new vector: " << dsn::map_sort(stocks) << std::endl;
     assert(k2 == dsn::map_sort(stocks));
 
-    std::function<bool (std::string, std::string)> desc_sort = [&](std::string a, std::string b) {
+    std::function<bool(std::string, std::string)> desc_sort = [&](std::string a, std::string b) {
         return (stocks[a] > stocks[b]);
     };
 
