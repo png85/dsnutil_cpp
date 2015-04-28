@@ -144,9 +144,12 @@ endif(dsnutil_cpp_WITH_EXAMPLES)
 
 
 # Add target for API docs if Doxygen is available
-include(DocTarget)
-if(DOXYGEN_FOUND)
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile DESTINATION share/doc/libdsnutil)
-endif(DOXYGEN_FOUND)
+option(dsnutil_cpp_BUILD_DOCS "Build dsnutil_cpp docs if Doxygen is available?" ON)
+if(dsnutil_cpp_BUILD_DOCS)
+    include(DocTarget)
+    if(DOXYGEN_FOUND)
+        install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile DESTINATION share/doc/libdsnutil)
+    endif(DOXYGEN_FOUND)
+endif(dsnutil_cpp_BUILD_DOCS)
 
-install(FILES README.md DESTINATION share/doc/libdsnutil)
+install(FILES README.md DESTINATION share/doc/dsnutil_cpp)

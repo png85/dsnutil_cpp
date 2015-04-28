@@ -18,16 +18,24 @@ this library contains various little utility/helper functions and classes that h
 ## Building [![Build Status](https://travis-ci.org/png85/dsnutil_cpp.png?branch=master)](https://travis-ci.org/png85/dsnutil_cpp)
 Use CMake to configure and build as needed. Useful options might be:
 
-* `dsnutil_cpp_WITH_LOG4CPP`   - Enable/disable log4cpp support
-* `dsnutil_cpp_WITH_BOOST_LOG` - Enable/disable boost::log support
-* `dsnutil_cpp_WITH_BASE64`    - Enable/disable base64 library
-* `dsnutil_cpp_WITH_EXAMPLES`  - Enable/disable building example binaries and tests
+* `dsnutil_cpp_BUILD_SHARED_LIBS` - Select wether to build shared (default) or static libraries
+* `dsnutil_cpp_BUILD_DOCS`        - Build API docs if Doxygen is available
+
+Optional features can be enabled/disabled via the following options
+* `dsnutil_cpp_WITH_LOG4CPP`   - log4cpp-based logging functions (deprecated)
+* `dsnutil_cpp_WITH_BOOST_LOG` - boost::log-based logging functions
+* `dsnutil_cpp_WITH_BASE64`    - Base64 encoder/decoder functions
+* `dsnutil_cpp_WITH_EXAMPLES`  - Build examples/tests for everything?
 
 The build is setup so that the library can easily be used as a git submodule and integrated into larger CMake-based builds. This can be done via the following
 additions to your own CMakeLists.txt:
 
 ```CMake
 set(dsnutil_cpp_WITH_EXAMPLES OFF CACHE BOOL "Build dsnutil_cpp with examples?")
+set(dsnutil_cpp_BUILD_DOCS OFF CACHE BOOL "Build dsnutil_cpp API docs?")
+#
+# ... possible other options here ...
+#
 add_subdirectory(dsnutil_cpp)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/dsnutil_cpp/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/dsnutil_cpp/include)
