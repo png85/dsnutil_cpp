@@ -61,27 +61,67 @@ find_package(Threads REQUIRED)
 
 
 #
+# Option to switch between static/shared library builds
+option(dsnutil_cpp_BUILD_SHARED_LIBS "Build dsnutil_cpp as shared libraries" ON)
+if(dsnutil_cpp_BUILD_SHARED_LIBS)
+    set(LIB_TYPE SHARED)
+else()
+    set(LIB_TYPE STATIC)
+endif(dsnutil_cpp_BUILD_SHARED_LIBS)
+
+# This is required to auto-generate proper *_EXPORT headers for Windows DLLs
+include(GenerateExportHeader)
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
+
+#
 # libdsnutil_cpp: Main library
 file(GLOB_RECURSE dsnutil_cpp_HDRS include/dsnutil/*.h)
 file(GLOB dsnutil_cpp_SRCS src/*.cpp)
-add_library(dsnutil_cpp STATIC ${dsnutil_cpp_SRCS} ${dsnutil_cpp_HDRS})
-install(TARGETS dsnutil_cpp ARCHIVE DESTINATION lib)
+add_library(dsnutil_cpp ${LIB_TYPE} ${dsnutil_cpp_SRCS} ${dsnutil_cpp_HDRS})
+generate_export_header(dsnutil_cpp
+                       BASE_NAME dsnutil_cpp
+                       EXPORT_MACRO_NAME dsnutil_cpp_EXPORT
+                       EXPORT_FILE_NAME include/dsnutil/dsnutil_cpp_Export.h
+                       STATIC_DEFINE dsnutil_cpp_BUILT_AS_STATIC)
+install(TARGETS dsnutil_cpp ARCHIVE DESTINATION lib
+                            LIBRARY DESTINATION LIBRARY
+                            RUNTIME DESTINATION bin)
 install(DIRECTORY include/dsnutil DESTINATION include)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/dsnutil_cpp_Export.h DESTINATION include/dsnutil)
 
 
 #
 # libdsnutil_cpp-log: Optional boost::log based logging API
 if(dsnutil_cpp_WITH_BOOST_LOG)
     file(GLOB dsnutil_cpp_log_SRCS src/log/*.cpp)
-    add_library(dsnutil_cpp-log STATIC ${dsnutil_cpp_log_SRCS} ${dsnutil_cpp_HDRS})
-    install(TARGETS dsnutil_cpp-log ARCHIVE DESTINATION lib)
+    add_library(dsnutil_cpp-log ${LIB_TYPE} ${dsnutil_cpp_log_SRCS} ${dsnutil_cpp_HDRS})
+    target_link_libraries(dsnutil_cpp-log ${Boost_LIBRARIES})
+    generate_export_header(dsnutil_cpp-log
+                           BASE_NAME dsnutil_cpp_log
+                           EXPORT_MACRO_NAME dsnutil_cpp_log_EXPORT
+                           EXPORT_FILE_NAME include/dsnutil/log/dsnutil_cpp_log_Export.h
+                           STATIC_DEFINE dsnutil_cpp_log_BUILT_AS_STATIC)
+    install(TARGETS dsnutil_cpp-log ARCHIVE DESTINATION lib
+                                    LIBRARY DESTINATION lib
+                                    RUNTIME DESTINATION bin)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/log/dsnutil_cpp_log_Export.h DESTINATION include/dsnutil/log)
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
+#
+# libdsnutil_cpp-base64: Optional Base64 encoder/decoder functions
 option(dsnutil_cpp_WITH_BASE64 "Build libdsnutil_cpp-base64" ON)
 if(dsnutil_cpp_WITH_BASE64)
     file(GLOB dsnutil_cpp_base64_SRCS src/base64/*.cpp)
-    add_library(dsnutil_cpp-base64 STATIC ${dsnutil_cpp_base64_SRCS} ${dsnutil_cpp_HDRS})
-    install(TARGETS dsnutil_cpp-base64 ARCHIVE DESTINATION lib)
+    add_library(dsnutil_cpp-base64 ${LIB_TYPE} ${dsnutil_cpp_base64_SRCS} ${dsnutil_cpp_HDRS})
+    generate_export_header(dsnutil_cpp-base64
+                           BASE_NAME dsnutil_cpp_base64
+                           EXPORT_MACRO_NAME dsnutil_cpp_base64_EXPORT
+                           EXPORT_FILE_NAME ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/base64/dsnutil_cpp_base64_Export.h
+                           STATIC_DEFINE dsnutil_cpp_base64_BUILT_AS_STATIC)
+    install(TARGETS dsnutil_cpp-base64 ARCHIVE DESTINATION lib
+                                       LIBRARY DESTINATION lib
+                                       RUNTIME DESTINATION bin)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/base64/dsnutil_cpp_base64_Export.h DESTINATION include/dsnutil/base64)
 endif(dsnutil_cpp_WITH_BASE64)
 
 

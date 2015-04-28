@@ -3,11 +3,11 @@
 
 #include <string>
 
+#include <dsnutil/log/dsnutil_cpp_log_Export.h>
+
 namespace dsn {
 namespace log {
-
-void init(const std::string& filename="");
-
+    void dsnutil_cpp_log_EXPORT init(const std::string& filename = "");
 }
 }
 

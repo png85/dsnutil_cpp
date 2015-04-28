@@ -11,9 +11,11 @@
 #include <functional>
 #include <stdexcept>
 
+#include <dsnutil/dsnutil_cpp_Export.h>
+
 namespace dsn {
 
-class ThreadPool {
+class dsnutil_cpp_EXPORT ThreadPool {
 public:
     ThreadPool(size_t size = std::thread::hardware_concurrency());
     ~ThreadPool();

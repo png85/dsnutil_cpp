@@ -12,11 +12,13 @@
 
 #include <iostream>
 
-void hexdump(const void* mem, size_t length, std::ostream& out);
+#include <dsnutil/dsnutil_cpp_Export.h>
+
+void dsnutil_cpp_EXPORT hexdump(const void* mem, size_t length, std::ostream& out);
 
 #ifdef WITH_LOG4CPP
 #include <log4cpp/CategoryStream.hh>
-void hexdump(const void* mem, size_t length, log4cpp::CategoryStream out);
+void dsnutil_cpp_EXPORT hexdump(const void* mem, size_t length, log4cpp::CategoryStream out);
 #endif // WITH_LOG4CPP
 
 #endif // !HEXDUMP_HH
