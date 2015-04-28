@@ -89,7 +89,7 @@ endif(dsnutil_cpp_WITH_BASE64)
 # Version info for source/binary packages
 set(CPACK_PACKAGE_VERSION_MAJOR 0)
 set(CPACK_PACKAGE_VERSION_MINOR 99)
-set(CPACK_PACKAGE_VERSION_PATCH 3)
+set(CPACK_PACKAGE_VERSION_PATCH 4)
 include(CPack)
 
 
