@@ -77,6 +77,13 @@ if(dsnutil_cpp_WITH_BOOST_LOG)
     install(TARGETS dsnutil_cpp-log ARCHIVE DESTINATION lib)
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
+option(dsnutil_cpp_WITH_BASE64 "Build libdsnutil_cpp-base64" ON)
+if(dsnutil_cpp_WITH_BASE64)
+    file(GLOB dsnutil_cpp_base64_SRCS src/base64/*.cpp)
+    add_library(dsnutil_cpp-base64 STATIC ${dsnutil_cpp_base64_SRCS} ${dsnutil_cpp_HDRS})
+    install(TARGETS dsnutil_cpp-base64 ARCHIVE DESTINATION lib)
+endif(dsnutil_cpp_WITH_BASE64)
+
 
 #
 # Version info for source/binary packages
