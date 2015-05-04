@@ -11,6 +11,11 @@
  *
  * \version 1.0 Initial release
  */
+#ifdef WIN32
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+#include <dsnutil/hexdump.h>
+
 #include <cctype>
 #include <cstdio>
 #include <cstring>
@@ -19,7 +24,6 @@
 #ifdef WITH_LOG4CPP
 #include <log4cpp/CategoryStream.hh>
 #endif
-#include <dsnutil/hexdump.h>
 
 /** \brief Print hex dump of a memory area
  *
