@@ -87,7 +87,7 @@ generate_export_header(dsnutil_cpp
                        EXPORT_FILE_NAME include/dsnutil/dsnutil_cpp_Export.h
                        STATIC_DEFINE dsnutil_cpp_BUILT_AS_STATIC)
 install(TARGETS dsnutil_cpp ARCHIVE DESTINATION lib
-                            LIBRARY DESTINATION LIBRARY
+                            LIBRARY DESTINATION lib
                             RUNTIME DESTINATION bin)
 install(DIRECTORY include/dsnutil DESTINATION include)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/dsnutil_cpp_Export.h DESTINATION include/dsnutil)
