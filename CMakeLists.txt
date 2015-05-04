@@ -133,7 +133,11 @@ if(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
     # Version info for source/binary packages
     set(CPACK_PACKAGE_VERSION_MAJOR 0)
     set(CPACK_PACKAGE_VERSION_MINOR 99)
-    set(CPACK_PACKAGE_VERSION_PATCH 4)
+    set(CPACK_PACKAGE_VERSION_PATCH 5)
+    set(CPACK_PACKAGE_DESCRIPTION "#das-system Networks C++ utility libraries")
+    if(WIN32)
+        set(CPACK_GENERATOR "ZIP")
+    endif(WIN32)
     include(CPack)
 endif(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
 
