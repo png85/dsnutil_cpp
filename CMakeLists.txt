@@ -31,6 +31,9 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
 
+option(dsnutil_cpp_BUILD_AS_SUBMODULE "Build dsnutil_cpp as git submodule?" OFF)
+
+
 #
 # Look for log4cpp
 find_package(Log4cpp)
@@ -125,13 +128,14 @@ if(dsnutil_cpp_WITH_BASE64)
 endif(dsnutil_cpp_WITH_BASE64)
 
 
-#
-# Version info for source/binary packages
-set(CPACK_PACKAGE_VERSION_MAJOR 0)
-set(CPACK_PACKAGE_VERSION_MINOR 99)
-set(CPACK_PACKAGE_VERSION_PATCH 4)
-include(CPack)
-
+if(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
+    #
+    # Version info for source/binary packages
+    set(CPACK_PACKAGE_VERSION_MAJOR 0)
+    set(CPACK_PACKAGE_VERSION_MINOR 99)
+    set(CPACK_PACKAGE_VERSION_PATCH 4)
+    include(CPack)
+endif(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
 
 #
 # Enable testing and CDash submission
@@ -145,11 +149,11 @@ endif(dsnutil_cpp_WITH_EXAMPLES)
 
 # Add target for API docs if Doxygen is available
 option(dsnutil_cpp_BUILD_DOCS "Build dsnutil_cpp docs if Doxygen is available?" ON)
-if(dsnutil_cpp_BUILD_DOCS)
+if(dsnutil_cpp_BUILD_DOCS AND NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
     include(DocTarget)
     if(DOXYGEN_FOUND)
         install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile DESTINATION share/doc/libdsnutil)
     endif(DOXYGEN_FOUND)
-endif(dsnutil_cpp_BUILD_DOCS)
+endif(dsnutil_cpp_BUILD_DOCS AND NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
 
 install(FILES README.md DESTINATION share/doc/dsnutil_cpp)
