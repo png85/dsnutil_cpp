@@ -30,6 +30,10 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     endif()
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
+include(CheckCXX11Features)
+foreach(feature ${CXX11_FEATURE_LIST})
+    add_definitions(-D${feature})
+endforeach(feature)
 
 option(dsnutil_cpp_BUILD_AS_SUBMODULE "Build dsnutil_cpp as git submodule?" OFF)
 
