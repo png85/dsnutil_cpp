@@ -1,7 +1,7 @@
 
 list(APPEND example_BINS "finally" "pretty_print" "parallel_for" "threadpool" "singleton" "map_sort" "hexdump" "reverse" "countof")
 if(dsnutil_cpp_WITH_BOOST_LOG)
-    list(APPEND example_BINS "boost_log-base" "boost_log-stream_interceptor")
+    list(APPEND example_BINS "boost_log-base" "boost_log-stream_interceptor" "boost_log-sinkmanager")
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
 if(dsnutil_cpp_WITH_BASE64)
