@@ -18,7 +18,7 @@ namespace dsn {
  * @param out Reference to a vector<kT> that shall hold the extracted keys
  */
 template <typename kT, typename vT>
-void map_keys(std::map<kT, vT>& in, std::vector<kT>& out)
+void map_keys(const std::map<kT, vT>& in, std::vector<kT>& out)
 {
     out.clear();
     out.resize(in.size());
@@ -35,7 +35,7 @@ void map_keys(std::map<kT, vT>& in, std::vector<kT>& out)
  * @return vector<kT> that contains all keys for in
  */
 template <typename kT, typename vT>
-std::vector<kT> map_keys(std::map<kT, vT>& in)
+std::vector<kT> map_keys(const std::map<kT, vT>& in)
 {
     std::vector<kT> out;
     map_keys(in, out);
