@@ -20,13 +20,17 @@ SinkManager::~SinkManager()
 
 bool SinkManager::exists(const std::string& name) const
 {
-    return (m_sinks.find(name) != m_sinks.end());
+    for (auto& sink : m_sinks)
+        if (sink.first == name)
+            return true;
+
+    return false;
 }
 
 bool SinkManager::add(const std::string& name, const SinkManager::sink_ptr& sink)
 {
     if (exists(name)) {
-        BOOST_LOG_SEV(log, severity::debug) << "Overwriting '" << name << "' sink...";
+        BOOST_LOG_SEV(log, severity::trace) << "Overwriting '" << name << "' sink...";
         if (!remove(name)) {
             BOOST_LOG_SEV(log, severity::error) << "Failed to remove existing '" << name << "' sink!";
             return false;
@@ -36,6 +40,7 @@ bool SinkManager::add(const std::string& name, const SinkManager::sink_ptr& sink
     boost::log::core::get()->add_sink(sink);
     m_sinks[name] = sink;
     BOOST_LOG_SEV(log, severity::debug) << "Added sink: " << name;
+
     return true;
 }
 
@@ -48,7 +53,8 @@ bool SinkManager::remove(const std::string& name)
 
     boost::log::core::get()->remove_sink(m_sinks[name]);
     m_sinks.erase(name);
-    BOOST_LOG_SEV(log, severity::debug) << "Removed sink: " << name;
+    BOOST_LOG_SEV(log, severity::trace) << "Removed sink: " << name;
+
     return true;
 }
 
