@@ -57,3 +57,13 @@ std::vector<std::string> SinkManager::sinks() const
 {
     return dsn::map_keys(m_sinks);
 }
+
+SinkManager::sink_ptr SinkManager::sink(const std::string& name)
+{
+    if (!exists(name)) {
+        BOOST_LOG_SEV(log, severity::error) << "Tried access non-existant sink '" << name.c_str() << "'; returning nullptr!";
+        return nullptr;
+    }
+
+    return m_sinks[name];
+}

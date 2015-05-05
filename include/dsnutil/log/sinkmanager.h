@@ -25,6 +25,7 @@ namespace log {
         bool remove(const std::string& name);
 
         std::vector<std::string> sinks() const;
+        sink_ptr sink(const std::string& name);
 
     private:
         std::map<std::string, sink_ptr> m_sinks;
