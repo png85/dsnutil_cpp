@@ -1,11 +1,11 @@
-#include <boost/log/utility/setup/console.hpp>
-#include <boost/log/utility/setup/file.hpp>
-
-#include <boost/log/utility/setup/common_attributes.hpp>
-
-#include <boost/log/trivial.hpp>
-
 #include <dsnutil/log/init.h>
+#include <dsnutil/log/sinkmanager.h>
+#include <dsnutil/null_deleter.h>
+
+#include <boost/log/utility/setup/formatter_parser.hpp>
+#include <boost/log/utility/setup/file.hpp>
+#include <boost/log/utility/setup/common_attributes.hpp>
+#include <boost/log/trivial.hpp>
 
 /** \brief Initialize default logging environment
  *
@@ -19,7 +19,20 @@ void dsn::log::init(const std::string& filename)
 
     static const std::string format{ "%TimeStamp% %Severity% (P:%ProcessID%,T:%ThreadID%) (%Class%@%This%): %Message%" };
 
-    boost::log::add_console_log(std::clog, boost::log::keywords::format = format);
+    dsn::log::SinkManager& manager = dsn::log::SinkManager::getInstance();
+
+    // create backend for std::clog sink
+    boost::shared_ptr<boost::log::sinks::text_ostream_backend> backend = boost::make_shared<boost::log::sinks::text_ostream_backend>();
+    backend->add_stream(boost::shared_ptr<std::ostream>(&std::clog, dsn::null_deleter()));
+    backend->auto_flush(true);
+
+    // create the actual sink
+    typedef boost::log::sinks::synchronous_sink<boost::log::sinks::text_ostream_backend> sink_t;
+    boost::shared_ptr<sink_t> sink(new sink_t(backend));
+    sink->set_formatter(boost::log::parse_formatter(format));
+
+    // register sink with manager
+    manager.add("std::clog", sink);
     BOOST_LOG_TRIVIAL(trace) << "Initialized default console log settings";
 
     if (filename.length() > 0) {
