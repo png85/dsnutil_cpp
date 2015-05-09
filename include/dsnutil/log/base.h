@@ -20,7 +20,7 @@ typedef boost::log::trivial::severity_level severity;
 namespace dsn {
 namespace log {
 
-/** \brief Base template for classes using boost::log based logging
+    /** \brief Base template for classes using boost::log based logging
  *
  * This template implements a basic logging API using boost::log which can be added to any class
  * by deriving from the template instanced for the class itself.
@@ -38,29 +38,28 @@ namespace log {
  *
  * \author Peter Hille (png!das-system) <peter@das-system-networks.de>
  */
-template <typename T> class Base
-{
-public:
-    Base<T>()
-    {
-        static const std::string name{typeid(T).name()};
+    template <typename T>
+    class Base {
+    public:
+        Base<T>()
+        {
+            static const std::string name{ typeid(T).name() };
 
-        log.add_attribute("Class", boost::log::attributes::constant<std::string>(name));
+            log.add_attribute("Class", boost::log::attributes::constant<std::string>(name));
 
-        std::stringstream ss;
-        ss << this;
-        log.add_attribute("This", boost::log::attributes::constant<std::string>(ss.str()));
-    }
+            std::stringstream ss;
+            ss << this;
+            log.add_attribute("This", boost::log::attributes::constant<std::string>(ss.str()));
+        }
 
-protected:
-    /** \brief Severity logger for all messages from derived class
+    protected:
+        /** \brief Severity logger for all messages from derived class
      *
      * This logger can be used via BOOST_LOG_SEV(log, <severity_level>) << message to log diagnostic
      * information from the instance of the derived class.
      */
-    boost::log::sources::severity_logger<severity> log;
-};
-
+        boost::log::sources::severity_logger<severity> log;
+    };
 }
 }
 
