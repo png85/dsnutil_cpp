@@ -6,11 +6,7 @@
 
 namespace dsn {
 template <class T, size_t N>
-#ifdef dsnutil_cpp_COMPILER_CXX_CONSTEXPR
-constexpr size_t countof(const T (&)[N])
-#else
-size_t countof(const T (&)[N])
-#endif
+dsnutil_cpp_CONSTEXPR size_t countof(const T (&)[N])
 {
     return N;
 }
