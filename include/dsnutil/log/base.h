@@ -1,6 +1,8 @@
 #ifndef BASE_H
 #define BASE_H
 
+#include <dsnutil/compiler_features.h>
+
 #include <typeinfo>
 #include <sstream>
 
@@ -9,8 +11,11 @@
 #include <boost/log/attributes/constant.hpp>
 #include <boost/log/sources/severity_logger.hpp>
 
-/// \brief Shortcut to use severity::<value> in BOOST_LOG_SEV
+#ifdef dsnutil_cpp_COMPILER_CXX_ALIAS_TEMPLATES
 using severity = boost::log::trivial::severity_level;
+#else
+typedef boost::log::trivial::severity_level severity;
+#endif
 
 namespace dsn {
 namespace log {

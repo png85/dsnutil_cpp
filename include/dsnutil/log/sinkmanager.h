@@ -18,6 +18,7 @@ namespace log {
         ~SinkManager();
 
     public:
+        /// \brief Pointer to a managed log sink
         typedef boost::shared_ptr<boost::log::sinks::sink> sink_ptr;
 
         bool exists(const std::string& name) const;
@@ -28,7 +29,11 @@ namespace log {
         sink_ptr sink(const std::string& name);
 
     private:
-        std::map<std::string, sink_ptr> m_sinks;
+        /// \brief Storage container type for managed log sinks
+        typedef std::map<std::string, sink_ptr> sink_storage;
+
+        /// \brief Storage container for managed log sinks
+        sink_storage m_sinks;
     };
 }
 }

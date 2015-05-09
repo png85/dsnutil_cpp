@@ -2,10 +2,11 @@
 #define DSNUTIL_COUNTOF_H
 
 #include <cstddef>
+#include <dsnutil/compiler_features.h>
 
 namespace dsn {
 template <class T, size_t N>
-#ifdef HAVE_CXX11_CONSTEXPR
+#ifdef dsnutil_cpp_COMPILER_CXX_CONSTEXPR
 constexpr size_t countof(const T (&)[N])
 #else
 size_t countof(const T (&)[N])

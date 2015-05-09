@@ -1,5 +1,5 @@
 project(dsnutil-cpp)
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1)
 
 #
 # Append cmake-modules/ to module path for custom macros
@@ -8,6 +8,19 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules")
 #
 # Add our own include directory
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+include(WriteCompilerDetectionHeader)
+write_compiler_detection_header(FILE "${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/compiler_features.h"
+                                PREFIX dsnutil_cpp
+                                COMPILERS GNU MSVC Clang
+                                FEATURES
+                                    cxx_alias_templates
+                                    cxx_auto_type
+                                    cxx_constexpr
+                                    cxx_nullptr
+                                    cxx_range_for
+                                    cxx_strong_enums)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/compiler_features.h DESTINATION include/dsnutil)
 
 #
 # Enable GCC-specific C++11 compiler flags

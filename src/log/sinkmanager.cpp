@@ -1,3 +1,4 @@
+#include <dsnutil/compiler_features.h>
 #include <dsnutil/log/sinkmanager.h>
 #include <dsnutil/map_sort.h>
 
@@ -9,18 +10,25 @@ SinkManager::SinkManager()
 
 SinkManager::~SinkManager()
 {
+#if (dsnutil_cpp_COMPILER_CXX_RANGE_FOR && dsnutil_cpp_COMPILER_CXX_AUTO_TYPE)
     for (auto& sink : m_sinks) {
         BOOST_LOG_SEV(log, severity::trace) << "Removing leftover log sink: " << sink.first;
         boost::log::core::get()->remove_sink(sink.second);
     }
+#else
+    for (sink_storage::iterator it = m_sinks.begin(); it != m_sinks.end(); ++it) {
+        BOOST_LOG_SEV(log, severity::trace) << "Removing leftover log sink: " << it->first;
+        boost::log::core::get()->remove_sink(it->second);
+    }
+#endif
     m_sinks.clear();
 }
 
 bool SinkManager::exists(const std::string& name) const
 {
-    for (auto& sink : m_sinks)
-        if (sink.first == name)
-            return true;
+    sink_storage::const_iterator it = m_sinks.find(name);
+    if (it != m_sinks.end())
+        return true;
 
     return false;
 }
