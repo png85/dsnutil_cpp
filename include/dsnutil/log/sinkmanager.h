@@ -1,6 +1,7 @@
 #ifndef SINKMANAGER_H
 #define SINKMANAGER_H
 
+#include <dsnutil/dsnutil_cpp_Export.h>
 #include <dsnutil/singleton.h>
 #include <dsnutil/log/base.h>
 
@@ -12,7 +13,7 @@
 namespace dsn {
 namespace log {
 
-    class SinkManager : public dsn::Singleton<SinkManager>, public Base<SinkManager> {
+    class dsnutil_cpp_EXPORT SinkManager : public dsn::Singleton<SinkManager>, public Base<SinkManager> {
         friend class dsn::Singleton<SinkManager>;
         SinkManager();
         ~SinkManager();
