@@ -70,7 +70,7 @@ SinkManager::sink_ptr SinkManager::sink(const std::string& name)
 {
     if (!exists(name)) {
         BOOST_LOG_SEV(log, severity::error) << "Tried access non-existant sink '" << name.c_str() << "'; returning nullptr!";
-        return nullptr;
+        return sink_ptr(dsnutil_cpp_NULLPTR);
     }
 
     return m_sinks[name];
