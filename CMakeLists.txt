@@ -15,6 +15,7 @@ write_compiler_detection_header(FILE "${CMAKE_CURRENT_BINARY_DIR}/include/dsnuti
                                 COMPILERS GNU MSVC Clang
                                 FEATURES
                                     cxx_alias_templates
+                                    cxx_attribute_deprecated
                                     cxx_auto_type
                                     cxx_constexpr
                                     cxx_deleted_functions
