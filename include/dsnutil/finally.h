@@ -1,6 +1,7 @@
 #ifndef FINALLY_H
 #define FINALLY_H
 
+#include <dsnutil/compiler_features.h>
 #include <functional>
 
 namespace dsn {
@@ -9,8 +10,8 @@ class finally {
     std::function<void(void)> m_functor;
 
 public:
-    finally() = delete;
-    finally(const finally& other) = delete;
+    finally() dsnutil_cpp_DELETED_FUNCTION;
+    finally(const finally& other) dsnutil_cpp_DELETED_FUNCTION;
     finally(const std::function<void(void)>& functor)
         : m_functor(functor)
     {

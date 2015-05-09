@@ -17,6 +17,7 @@ write_compiler_detection_header(FILE "${CMAKE_CURRENT_BINARY_DIR}/include/dsnuti
                                     cxx_alias_templates
                                     cxx_auto_type
                                     cxx_constexpr
+                                    cxx_deleted_functions
                                     cxx_nullptr
                                     cxx_range_for
                                     cxx_strong_enums)
