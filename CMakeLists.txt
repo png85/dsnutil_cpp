@@ -118,6 +118,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/dsnutil_cpp_Export.h D
 if(dsnutil_cpp_WITH_BOOST_LOG)
     file(GLOB dsnutil_cpp_log_SRCS src/log/*.cpp)
     add_library(dsnutil_cpp-log ${LIB_TYPE} ${dsnutil_cpp_log_SRCS} ${dsnutil_cpp_HDRS})
+    set_target_properties(dsnutil_cpp-log PROPERTIES COMPILE_DEFINITIONS "dsnutil_cpp_EXPORTS")
     target_link_libraries(dsnutil_cpp-log ${Boost_LIBRARIES})
     generate_export_header(dsnutil_cpp-log
                            BASE_NAME dsnutil_cpp_log
@@ -136,6 +137,7 @@ option(dsnutil_cpp_WITH_BASE64 "Build libdsnutil_cpp-base64" ON)
 if(dsnutil_cpp_WITH_BASE64)
     file(GLOB dsnutil_cpp_base64_SRCS src/base64/*.cpp)
     add_library(dsnutil_cpp-base64 ${LIB_TYPE} ${dsnutil_cpp_base64_SRCS} ${dsnutil_cpp_HDRS})
+    set_target_properties(dsnutil_cpp-base64 PROPERTIES COMPILE_DEFINITIONS "dsnutil_cpp_EXPORTS")
     generate_export_header(dsnutil_cpp-base64
                            BASE_NAME dsnutil_cpp_base64
                            EXPORT_MACRO_NAME dsnutil_cpp_base64_EXPORT
