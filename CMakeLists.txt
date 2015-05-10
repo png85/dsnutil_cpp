@@ -13,6 +13,7 @@ include(WriteCompilerDetectionHeader)
 write_compiler_detection_header(FILE "${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/compiler_features.h"
                                 PREFIX dsnutil_cpp
                                 COMPILERS GNU MSVC Clang
+                                VERSION 3.1.0
                                 FEATURES
                                     cxx_alias_templates
                                     cxx_attribute_deprecated
