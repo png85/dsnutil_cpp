@@ -58,32 +58,6 @@ write_compiler_detection_header(FILE "${CMAKE_CURRENT_BINARY_DIR}/include/dsnuti
                                     cxx_strong_enums)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/compiler_features.h DESTINATION include/dsnutil)
 
-#
-# Enable GCC-specific C++11 compiler flags
-if(CMAKE_COMPILER_IS_GNUCXX)
-    include(CheckCXXCompilerFlag)
-    check_cxx_compiler_flag("-std=c++11" GCC_stdcxx11)
-    check_cxx_compiler_flag("-std=c++0x" GCC_stdcxx0x)
-
-    if(GCC_stdcxx11)
-        # Compiler supports -std=c++11
-        message(STATUS "Using -std=c++11 to enable C++11 in GCC")
-        add_definitions(-std=c++11)
-    elseif(GCC_stdcxx0x)
-        # Compiler doesn't support -std=c++11 but -std=c++0x
-        message(STATUS "Using -std=c++0x to enable C++11 in GCC")
-        add_definitions(-std=c++0x)
-    else()
-        # Neither -std=c++11 nor -std=c++0x are supported
-        message(WARNING "Failed to determine C++11 flag for GCC :-(")
-    endif()
-endif(CMAKE_COMPILER_IS_GNUCXX)
-
-include(CheckCXX11Features)
-foreach(feature ${CXX11_FEATURE_LIST})
-    add_definitions(-D${feature})
-endforeach(feature)
-
 
 #
 # Look for log4cpp
