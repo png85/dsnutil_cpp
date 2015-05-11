@@ -6,6 +6,10 @@ set(dsnutil_cpp_VERSION_MINOR 99)
 set(dsnutil_cpp_VERSION_PATCH 6)
 
 option(dsnutil_cpp_BUILD_AS_SUBMODULE "Build dsnutil_cpp as git submodule?" OFF)
+option(dsnutil_cpp_BUILD_SHARED_LIBS "Build dsnutil_cpp as shared libraries" ON)
+option(dsnutil_cpp_BUILD_DOCS "Build dsnutil_cpp docs if Doxygen is available?" ON)
+option(dsnutil_cpp_WITH_BASE64 "Build libdsnutil_cpp-base64" ON)
+option(dsnutil_cpp_WITH_EXAMPLES "Build demo executables" ON)
 
 #
 # Append cmake-modules/ to module path for custom macros
@@ -25,6 +29,14 @@ if(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
     endif(WIN32)
     include(CPack)
 endif(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
+
+#
+# Setup lib type based on user choice
+if(dsnutil_cpp_BUILD_SHARED_LIBS)
+    set(LIB_TYPE SHARED)
+else()
+    set(LIB_TYPE STATIC)
+endif(dsnutil_cpp_BUILD_SHARED_LIBS)
 
 #
 # Add our own include directory
@@ -73,8 +85,6 @@ foreach(feature ${CXX11_FEATURE_LIST})
 endforeach(feature)
 
 
-
-
 #
 # Look for log4cpp
 find_package(Log4cpp)
@@ -103,15 +113,6 @@ endif(Boost_FOUND AND dsnutil_cpp_WITH_BOOST_LOG)
 # Get compiler flags & libraries for threading support
 find_package(Threads REQUIRED)
 
-
-#
-# Option to switch between static/shared library builds
-option(dsnutil_cpp_BUILD_SHARED_LIBS "Build dsnutil_cpp as shared libraries" ON)
-if(dsnutil_cpp_BUILD_SHARED_LIBS)
-    set(LIB_TYPE SHARED)
-else()
-    set(LIB_TYPE STATIC)
-endif(dsnutil_cpp_BUILD_SHARED_LIBS)
 
 # This is required to auto-generate proper *_EXPORT headers for Windows DLLs
 include(GenerateExportHeader)
@@ -154,7 +155,6 @@ endif(dsnutil_cpp_WITH_BOOST_LOG)
 
 #
 # libdsnutil_cpp-base64: Optional Base64 encoder/decoder functions
-option(dsnutil_cpp_WITH_BASE64 "Build libdsnutil_cpp-base64" ON)
 if(dsnutil_cpp_WITH_BASE64)
     file(GLOB dsnutil_cpp_base64_SRCS src/base64/*.cpp)
     add_library(dsnutil_cpp-base64 ${LIB_TYPE} ${dsnutil_cpp_base64_SRCS} ${dsnutil_cpp_HDRS})
@@ -175,14 +175,13 @@ endif(dsnutil_cpp_WITH_BASE64)
 # Enable testing and CDash submission
 include(CTest)
 enable_testing()
-option(dsnutil_cpp_WITH_EXAMPLES "Build demo executables" ON)
+
 if(dsnutil_cpp_WITH_EXAMPLES)
     add_subdirectory(examples)
 endif(dsnutil_cpp_WITH_EXAMPLES)
 
 
 # Add target for API docs if Doxygen is available
-option(dsnutil_cpp_BUILD_DOCS "Build dsnutil_cpp docs if Doxygen is available?" ON)
 if(dsnutil_cpp_BUILD_DOCS AND NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
     include(DocTarget)
     if(DOXYGEN_FOUND)
