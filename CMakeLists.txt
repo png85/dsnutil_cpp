@@ -1,9 +1,30 @@
 project(dsnutil-cpp)
 cmake_minimum_required(VERSION 3.1)
 
+set(dsnutil_cpp_VERSION_MAJOR 0)
+set(dsnutil_cpp_VERSION_MINOR 99)
+set(dsnutil_cpp_VERSION_PATCH 6)
+
+option(dsnutil_cpp_BUILD_AS_SUBMODULE "Build dsnutil_cpp as git submodule?" OFF)
+
 #
 # Append cmake-modules/ to module path for custom macros
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules")
+
+#
+# When not building as a git submodule we want to include CPack for binary packages
+if(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
+    #
+    # Version info for source/binary packages
+    set(CPACK_PACKAGE_VERSION_MAJOR ${dsnutil_cpp_VERSION_MAJOR})
+    set(CPACK_PACKAGE_VERSION_MINOR ${dsnutil_cpp_VERSION_MINOR})
+    set(CPACK_PACKAGE_VERSION_PATCH ${dsnutil_cpp_VERSION_PATCH})
+    set(CPACK_PACKAGE_DESCRIPTION "#das-system Networks C++ utility libraries")
+    if(WIN32)
+        set(CPACK_GENERATOR "ZIP")
+    endif(WIN32)
+    include(CPack)
+endif(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
 
 #
 # Add our own include directory
@@ -51,7 +72,7 @@ foreach(feature ${CXX11_FEATURE_LIST})
     add_definitions(-D${feature})
 endforeach(feature)
 
-option(dsnutil_cpp_BUILD_AS_SUBMODULE "Build dsnutil_cpp as git submodule?" OFF)
+
 
 
 #
@@ -149,19 +170,6 @@ if(dsnutil_cpp_WITH_BASE64)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/base64/dsnutil_cpp_base64_Export.h DESTINATION include/dsnutil/base64)
 endif(dsnutil_cpp_WITH_BASE64)
 
-
-if(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
-    #
-    # Version info for source/binary packages
-    set(CPACK_PACKAGE_VERSION_MAJOR 0)
-    set(CPACK_PACKAGE_VERSION_MINOR 99)
-    set(CPACK_PACKAGE_VERSION_PATCH 5)
-    set(CPACK_PACKAGE_DESCRIPTION "#das-system Networks C++ utility libraries")
-    if(WIN32)
-        set(CPACK_GENERATOR "ZIP")
-    endif(WIN32)
-    include(CPack)
-endif(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
 
 #
 # Enable testing and CDash submission
