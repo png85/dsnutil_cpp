@@ -100,6 +100,14 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
 file(GLOB_RECURSE dsnutil_cpp_HDRS include/dsnutil/*.h)
 file(GLOB dsnutil_cpp_SRCS src/*.cpp)
 add_library(dsnutil_cpp ${LIB_TYPE} ${dsnutil_cpp_SRCS} ${dsnutil_cpp_HDRS})
+target_compile_features(dsnutil_cpp PRIVATE cxx_auto_type
+					    cxx_lambdas
+					    cxx_nullptr
+				    	    cxx_range_for)
+target_compile_features(dsnutil_cpp PUBLIC cxx_lambdas
+				    	   cxx_variadic_templates
+					   cxx_attribute_deprecated
+					   cxx_strong_enums)
 generate_export_header(dsnutil_cpp
                        BASE_NAME dsnutil_cpp
                        EXPORT_MACRO_NAME dsnutil_cpp_EXPORT
