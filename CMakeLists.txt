@@ -44,10 +44,16 @@ endif(dsnutil_cpp_BUILD_SHARED_LIBS)
 # Add our own include directory
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+
 include(WriteCompilerDetectionHeader)
+if(WIN32)
+	set(supported_compilers GNU MSVC Clang)
+else(WIN32)
+	set(supported_compilers GNU Clang)
+endif(WIN32)
 write_compiler_detection_header(FILE "${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/compiler_features.h"
                                 PREFIX dsnutil_cpp
-                                COMPILERS GNU MSVC Clang
+                                COMPILERS ${supported_compilers}
                                 VERSION 3.1.0
                                 FEATURES
                                     cxx_alias_templates
