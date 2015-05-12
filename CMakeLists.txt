@@ -125,6 +125,10 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/dsnutil_cpp_Export.h D
 if(dsnutil_cpp_WITH_BOOST_LOG)
     file(GLOB dsnutil_cpp_log_SRCS src/log/*.cpp)
     add_library(dsnutil_cpp-log ${LIB_TYPE} ${dsnutil_cpp_log_SRCS} ${dsnutil_cpp_HDRS})
+    target_compile_features(dsnutil_cpp-log PRIVATE cxx_auto_type
+    					    	    cxx_lambdas
+						    cxx_nullptr
+						    cxx_range_for)
     set_target_properties(dsnutil_cpp-log PROPERTIES COMPILE_DEFINITIONS "dsnutil_cpp_EXPORTS")
     target_link_libraries(dsnutil_cpp-log ${Boost_LIBRARIES})
     generate_export_header(dsnutil_cpp-log
