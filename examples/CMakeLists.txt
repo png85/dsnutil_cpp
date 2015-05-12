@@ -1,9 +1,15 @@
-
+#
+# List of test binaries
 list(APPEND example_BINS "finally" "pretty_print" "parallel_for" "threadpool" "singleton" "map_sort" "hexdump" "reverse" "countof")
+
+#
+# Append boost::log tests to list if boost::log is enabled
 if(dsnutil_cpp_WITH_BOOST_LOG)
     list(APPEND example_BINS "boost_log-base" "boost_log-stream_interceptor" "boost_log-sinkmanager")
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
+#
+# Append base64 test binaries to list if base64 is enabled
 if(dsnutil_cpp_WITH_BASE64)
     list(APPEND example_BINS "base64")
 endif(dsnutil_cpp_WITH_BASE64)

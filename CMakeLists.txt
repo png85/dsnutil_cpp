@@ -10,6 +10,8 @@ option(dsnutil_cpp_BUILD_SHARED_LIBS "Build dsnutil_cpp as shared libraries" ON)
 option(dsnutil_cpp_BUILD_DOCS "Build dsnutil_cpp docs if Doxygen is available?" ON)
 option(dsnutil_cpp_WITH_BASE64 "Build libdsnutil_cpp-base64" ON)
 option(dsnutil_cpp_WITH_EXAMPLES "Build demo executables" ON)
+option(dsnutil_cpp_WITH_BOOST_LOG "Enable support for boost::log based logging API" ON)
+option(dsnutil_cpp_WITH_LOG4CPP "Enable support for logging with log4cpp" OFF)
 
 #
 # Append cmake-modules/ to module path for custom macros
@@ -60,27 +62,21 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/compiler_features.h DE
 
 
 #
-# Look for log4cpp
-find_package(Log4cpp)
-if(LOG4CPP_FOUND)
-    option(dsnutil_cpp_WITH_LOG4CPP "Enable support for logging with log4cpp" ON)
-endif(LOG4CPP_FOUND)
-if(dsnutil_cpp_WITH_LOG4CPP AND LOG4CPP_FOUND)
+# If log4cpp is requested we'll need to locate its headers & libs...
+if(dsnutil_cpp_WITH_LOG4CPP)
+    find_package(Log4cpp REQUIRED)
     include_directories(${LOG4CPP_INCLUDE_DIR})
     add_definitions(-DWITH_LOG4CPP)
-endif(dsnutil_cpp_WITH_LOG4CPP AND LOG4CPP_FOUND)
+endif(dsnutil_cpp_WITH_LOG4CPP)
 
 
 #
-# Look for Boost >= 1.54
-find_package(Boost 1.54 REQUIRED COMPONENTS system thread log log_setup date_time chrono filesystem)
-if(Boost_FOUND)
-    option(dsnutil_cpp_WITH_BOOST_LOG "Enable support for boost::log based logging API" ON)
-endif(Boost_FOUND)
-if(Boost_FOUND AND dsnutil_cpp_WITH_BOOST_LOG)
+# If boost::log is requested we'll need to locate Boost headers & libs...
+if(dsnutil_cpp_WITH_BOOST_LOG)
+    find_package(Boost 1.54 REQUIRED COMPONENTS system thread log log_setup date_time chrono filesystem)
     include_directories(${Boost_INCLUDE_DIRS})
     add_definitions(-DBOOST_ALL_DYN_LINK -DWITH_BOOST_LOG)
-endif(Boost_FOUND AND dsnutil_cpp_WITH_BOOST_LOG)
+endif(dsnutil_cpp_WITH_BOOST_LOG)
 
 
 #
@@ -91,6 +87,7 @@ find_package(Threads REQUIRED)
 # This is required to auto-generate proper *_EXPORT headers for Windows DLLs
 include(GenerateExportHeader)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
+
 
 #
 # libdsnutil_cpp: Main library
@@ -126,6 +123,7 @@ if(dsnutil_cpp_WITH_BOOST_LOG)
                                     RUNTIME DESTINATION bin)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/log/dsnutil_cpp_log_Export.h DESTINATION include/dsnutil/log)
 endif(dsnutil_cpp_WITH_BOOST_LOG)
+
 
 #
 # libdsnutil_cpp-base64: Optional Base64 encoder/decoder functions
