@@ -106,7 +106,6 @@ target_compile_features(dsnutil_cpp PRIVATE cxx_auto_type
 				    	    cxx_range_for)
 target_compile_features(dsnutil_cpp PUBLIC cxx_lambdas
 				    	   cxx_variadic_templates
-					   cxx_attribute_deprecated
 					   cxx_strong_enums)
 generate_export_header(dsnutil_cpp
                        BASE_NAME dsnutil_cpp
