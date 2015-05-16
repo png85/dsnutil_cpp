@@ -140,7 +140,9 @@ if(dsnutil_cpp_WITH_BOOST_LOG)
                                                                cxx_lambdas
                                                                cxx_nullptr
                                                                cxx_range_for)
-    set_target_properties(${dsnutil_cpp_log_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_LIBRARY}_EXPORTS;${dsnutil_cpp_log_LIBRARY}_EXPORTS")
+    if(WIN32)
+        set_target_properties(${dsnutil_cpp_log_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_LIBRARY}_EXPORTS;${dsnutil_cpp_log_LIBRARY}_EXPORTS")
+    endif(WIN32)
     target_link_libraries(${dsnutil_cpp_log_LIBRARY} ${Boost_LIBRARIES})
     generate_export_header(${dsnutil_cpp_log_LIBRARY}
                            BASE_NAME dsnutil_cpp_log

@@ -7,7 +7,7 @@ int main()
 {
     dsn::log::init();
 
-    dsn::log::SinkManager& manager = dsn::log::SinkManager::getInstance();
+    dsn::log::SinkManager& manager = dsn::log::SinkManager::instanceRef();
     BOOST_LOG_TRIVIAL(info) << "Sinks right after initialization: " << manager.sinks();
 
     boost::shared_ptr<boost::log::sinks::text_ostream_backend> backend = boost::make_shared<boost::log::sinks::text_ostream_backend>();

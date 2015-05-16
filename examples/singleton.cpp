@@ -16,7 +16,8 @@ public:
 int main(void)
 {
     std::cout << "Hello from main()!" << std::endl << std::flush;
-    Test::getInstance().hello();
+    Test::instanceRef().hello();
+    Test::instancePtr()->hello();
     std::cout << "Goodbye from main()!" << std::endl << std::flush;
 
     return EXIT_SUCCESS;

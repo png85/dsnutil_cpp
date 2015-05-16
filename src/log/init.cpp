@@ -19,7 +19,7 @@ void dsn::log::init(const std::string& filename)
 
     static const std::string format{ "%TimeStamp% %Severity% (P:%ProcessID%,T:%ThreadID%) (%Class%@%This%): %Message%" };
 
-    dsn::log::SinkManager& manager = dsn::log::SinkManager::getInstance();
+    dsn::log::SinkManager& manager = dsn::log::SinkManager::instanceRef();
 
     // create backend and sink for std::clog
     typedef boost::log::sinks::text_ostream_backend backend_t;

@@ -13,7 +13,7 @@
 namespace dsn {
 namespace log {
 
-    class dsnutil_cpp_EXPORT SinkManager : public dsn::Singleton<SinkManager>, public Base<SinkManager> {
+    class dsnutil_cpp_EXPORT SinkManager : public dsn::Singleton<dsn::log::SinkManager>, public Base<SinkManager> {
         friend class dsn::Singleton<SinkManager>;
         SinkManager();
         ~SinkManager();

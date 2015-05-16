@@ -5,6 +5,8 @@
 #ifndef SINGLETON_HH
 #define SINGLETON_HH 1
 
+#include <dsnutil/compiler_features.h>
+
 namespace dsn {
 /// \brief Template for singleton classes
 ///
@@ -16,10 +18,20 @@ public:
     /// \brief Access singleton instance
     ///
     /// Returns a reference to the instance of this singleton.
-    static Derived& getInstance()
+    static dsnutil_cpp_DEPRECATED Derived& getInstance()
+    {
+        return instanceRef();
+    }
+
+    static Derived& instanceRef()
     {
         static Derived instance;
         return instance;
+    }
+
+    static Derived* instancePtr()
+    {
+        return &instanceRef();
     }
 
 protected:
