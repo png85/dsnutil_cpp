@@ -51,7 +51,7 @@ const std::string& Exception::getDescription() const
     return m_description;
 }
 
-const char* Exception::what() const noexcept
+const char* Exception::what() const dsnutil_cpp_NOEXCEPT
 {
     return fullDescription().c_str();
 }

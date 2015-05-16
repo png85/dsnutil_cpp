@@ -5,6 +5,7 @@
 #include <string>
 
 #include <dsnutil/dsnutil_cpp_Export.h>
+#include <dsnutil/compiler_features.h>
 
 namespace dsn {
 
@@ -29,13 +30,18 @@ public:
 
     // exception interface
 public:
-    const char* what() const noexcept;
+    const char* what() const dsnutil_cpp_NOEXCEPT;
 };
 }
 
-#if (__GNUC__ == 2 && __GNUC__ >= 6) || __GNUC__ > 2 || defined(__clang__)
+#if (dsnutuil_cpp_COMPILER_IS_GNU || dsnutil_cpp_COMPILER_IS_Clang)
+// function signature for GCC/Clang
 #define DSN_EXCEPTION_SOURCE __PRETTY_FUNCTION__
+#elif (dsnutil_cpp_COMPILER_IS_MSVC)
+// function signature for MSVC
+#define DSN_EXCEPTION_SOURCE __FUNCSIG__
 #else
+// other compilers default to the filename
 #define DSN_EXCEPTION_SOURCE __FILE__
 #endif
 

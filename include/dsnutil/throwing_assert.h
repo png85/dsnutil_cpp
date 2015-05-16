@@ -46,14 +46,13 @@ inline void throwing_assert(bool test, const char* test_str, const char* source,
     }
 }
 
-#if (__GNUC__ == 2 && __GNUC_MINOR__ >= 6) || __GNUC__ > 2 || defined(__clang__)
-/** \brief Throwing assert(3) definition
- */
+#if (dsnutil_cpp_COMPILER_IS_GNU || dsnutil_cpp_COMPILER_IS_Clang)
 #define assert3(test, file, line) \
-    (::throwing_assert(test, #test, __PRETTY_FUNCTION__, file, line));
+    (::throwing_assert(test, #test, __PRETTY_FUNCTION__, file, line))
+#elif (dsnutil_cpp_COMPILER_IS_MSVC)
+#define assert3(test, file, line) \
+    (::throwing_assert(test, #test, __FUNCSIG__, file, line))
 #else
-/** \brief Throwing assert(3) definition
- */
 #define assert3(test, file, line) \
     (::throwing_assert(test, #test, #file ":" #line, file, line));
 #endif
