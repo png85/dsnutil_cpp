@@ -1,0 +1,9 @@
+#ifndef dsnutil_cpp_VERSION_H
+#define dsnutil_cpp_VERSION_H 1
+
+#define dsnutil_cpp_VERSION_MAJOR @dsnutil_cpp_VERSION_MAJOR@
+#define dsnutil_cpp_VERSION_MINOR @dsnutil_cpp_VERSION_MINOR@
+#define dsnutil_cpp_VERSION_PATCH @dsnutil_cpp_VERSION_PATCH@
+
+#define dsnutil_cpp_VERSION_STRING "@dsnutil_cpp_VERSION_MAJOR@.@dsnutil_cpp_VERSION_MINOR@.@dsnutil_cpp_VERSION_PATCH@ (@CMAKE_CXX_COMPILER_ID@ @CMAKE_BUILD_TYPE@)"
+#endif /* !dsnutil_cpp_VERSION_H_ */

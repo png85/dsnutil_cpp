@@ -95,6 +95,7 @@ find_package(Threads REQUIRED)
 include(GenerateExportHeader)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
 
+configure_file(version.h.in ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/dsnutil_cpp_version.h)
 
 #
 # libdsnutil_cpp: Main library
