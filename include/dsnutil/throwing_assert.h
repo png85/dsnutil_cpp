@@ -9,13 +9,16 @@
 #ifndef DSNUTIL_ASSERT_HPP
 #define DSNUTIL_ASSERT_HPP 1
 
+#include <dsnutil/exception.h>
 #include <stdexcept>
 #include <string>
 #include <cassert>
 
 #ifndef NDEBUG
 
+// disable existing assert macro
 #undef assert
+
 /** \brief Redefined assert(3)
  */
 #define assert(test) assert2(test, __FILE__, __LINE__)
@@ -29,31 +32,29 @@
  * that throws an exception.
  *
  * \param test Test condition for the assertion
- * \param msg Message text of the exception that shall be thrown
+ * \param test_str Test condition as string
+ * \param source Source function name
+ * \param file Source filename
+ * \param line Source line
  *
- * \throw std::logic_error with the given message text if the test condition
- * is false
+ * \throw dsn::Exception with a message about the failed assertion if test is false.
  */
-inline void throwing_assert(bool test, const std::string& msg)
+inline void throwing_assert(bool test, const char* test_str, const char* source, const char* file, size_t line)
 {
-    if (!test)
-        throw std::logic_error(msg);
+    if (!test) {
+        throw dsn::Exception(std::string("Assertion '").append(test_str).append("' failed!"), source, file, line);
+    }
 }
 
-#if (__GNUC__ == 2 && __GNUC_MINOR__ >= 6) || __GNUC__ > 2 || defined(__clang__)
-/** \brief Throwing assert(3) definition
- */
-#define assert3(test, file, line)                       \
-    (::throwing_assert(test,                            \
-                       std::string(file ":" #line ": ") \
-                           .append(__PRETTY_FUNCTION__) \
-                           .append(": assertion '" #test "' failed.")))
-#else
-/** \brief Throwing assert(3) definition
- */
+#if (dsnutil_cpp_COMPILER_IS_GNU || dsnutil_cpp_COMPILER_IS_Clang)
 #define assert3(test, file, line) \
-    (::throwing_assert(test,      \
-                       file ":" #line ": assertion '" #test "' failed."))
+    (::throwing_assert(test, #test, __PRETTY_FUNCTION__, file, line))
+#elif (dsnutil_cpp_COMPILER_IS_MSVC)
+#define assert3(test, file, line) \
+    (::throwing_assert(test, #test, __FUNCSIG__, file, line))
+#else
+#define assert3(test, file, line) \
+    (::throwing_assert(test, #test, #file ":" #line, file, line));
 #endif
 
 #endif // !NDEBUG
