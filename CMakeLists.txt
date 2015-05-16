@@ -120,6 +120,11 @@ target_compile_features(${dsnutil_cpp_LIBRARY} PUBLIC cxx_lambdas
 if(WIN32)
     set_target_properties(${dsnutil_cpp_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_LIBRARY}_EXPORTS")
 endif(WIN32)
+if(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
+    set_target_properties(${dsnutil_cpp_LIBRARY} PROPERTIES SONAME "dsnutil_cpp"
+                                                            SOVERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH}
+                                                            VERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH})
+endif(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
 generate_export_header(${dsnutil_cpp_LIBRARY}
                        BASE_NAME dsnutil_cpp
                        EXPORT_MACRO_NAME dsnutil_cpp_EXPORT
@@ -152,6 +157,11 @@ if(dsnutil_cpp_WITH_BOOST_LOG)
     if(WIN32)
         set_target_properties(${dsnutil_cpp_log_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_LIBRARY}_EXPORTS;${dsnutil_cpp_log_LIBRARY}_EXPORTS")
     endif(WIN32)
+    if(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
+        set_target_properties(${dsnutil_cpp_log_LIBRARY} PROPERTIES SONAME "dsnutil_cpp-log"
+                                                                    SOVERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH}
+                                                                    VERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH})
+    endif(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
     target_link_libraries(${dsnutil_cpp_log_LIBRARY} ${Boost_LIBRARIES})
     generate_export_header(${dsnutil_cpp_log_LIBRARY}
                            BASE_NAME dsnutil_cpp_log
@@ -181,6 +191,11 @@ if(dsnutil_cpp_WITH_BASE64)
     if(WIN32)
         set_target_properties(${dsnutil_cpp_base64_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_base64_LIBRARY}_EXPORTS")
     endif(WIN32)
+    if(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
+        set_target_properties(${dsnutil_cpp_base64_LIBRARY} PROPERTIES SONAME "dsnutil_cpp-base64"
+                                                                       SOVERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH}
+                                                                       VERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH})
+    endif(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
     generate_export_header(${dsnutil_cpp_base64_LIBRARY}
                            BASE_NAME dsnutil_cpp_base64
                            EXPORT_MACRO_NAME dsnutil_cpp_base64_EXPORT
