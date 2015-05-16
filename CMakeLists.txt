@@ -100,22 +100,29 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
 # libdsnutil_cpp: Main library
 file(GLOB_RECURSE dsnutil_cpp_HDRS include/dsnutil/*.h)
 file(GLOB dsnutil_cpp_SRCS src/*.cpp)
-add_library(dsnutil_cpp ${LIB_TYPE} ${dsnutil_cpp_SRCS} ${dsnutil_cpp_HDRS})
-target_compile_features(dsnutil_cpp PRIVATE cxx_auto_type
-					    cxx_lambdas
-					    cxx_nullptr
-				    	    cxx_range_for)
-target_compile_features(dsnutil_cpp PUBLIC cxx_lambdas
-				    	   cxx_variadic_templates
-					   cxx_strong_enums)
-generate_export_header(dsnutil_cpp
+set(dsnutil_cpp_LIBRARY dsnutil_cpp)
+if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(dsnutil_cpp_LIBRARY dsnutil_cppd)
+endif(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+add_library(${dsnutil_cpp_LIBRARY} ${LIB_TYPE} ${dsnutil_cpp_SRCS} ${dsnutil_cpp_HDRS})
+target_compile_features(${dsnutil_cpp_LIBRARY} PRIVATE cxx_auto_type
+                                               cxx_lambdas
+                                               cxx_nullptr
+                                               cxx_range_for)
+target_compile_features(${dsnutil_cpp_LIBRARY} PUBLIC cxx_lambdas
+                                               cxx_variadic_templates
+                                               cxx_strong_enums)
+if(WIN32)
+    set_target_properties(${dsnutil_cpp_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_LIBRARY}_EXPORTS")
+endif(WIN32)
+generate_export_header(${dsnutil_cpp_LIBRARY}
                        BASE_NAME dsnutil_cpp
                        EXPORT_MACRO_NAME dsnutil_cpp_EXPORT
                        EXPORT_FILE_NAME include/dsnutil/dsnutil_cpp_Export.h
                        STATIC_DEFINE dsnutil_cpp_BUILT_AS_STATIC)
-install(TARGETS dsnutil_cpp ARCHIVE DESTINATION lib
-                            LIBRARY DESTINATION lib
-                            RUNTIME DESTINATION bin)
+install(TARGETS ${dsnutil_cpp_LIBRARY} ARCHIVE DESTINATION lib
+                                       LIBRARY DESTINATION lib
+                                       RUNTIME DESTINATION bin)
 install(DIRECTORY include/dsnutil DESTINATION include)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/dsnutil_cpp_Export.h DESTINATION include/dsnutil)
 
@@ -123,22 +130,26 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/dsnutil_cpp_Export.h D
 #
 # libdsnutil_cpp-log: Optional boost::log based logging API
 if(dsnutil_cpp_WITH_BOOST_LOG)
+    set(dsnutil_cpp_log_LIBRARY dsnutil_cpp-log)
+    if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+        set(dsnutil_cpp_log_LIBRARY dsnutil_cpp-logd)
+    endif(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
     file(GLOB dsnutil_cpp_log_SRCS src/log/*.cpp)
-    add_library(dsnutil_cpp-log ${LIB_TYPE} ${dsnutil_cpp_log_SRCS} ${dsnutil_cpp_HDRS})
-    target_compile_features(dsnutil_cpp-log PRIVATE cxx_auto_type
-    					    	    cxx_lambdas
-						    cxx_nullptr
-						    cxx_range_for)
-    set_target_properties(dsnutil_cpp-log PROPERTIES COMPILE_DEFINITIONS "dsnutil_cpp_EXPORTS")
-    target_link_libraries(dsnutil_cpp-log ${Boost_LIBRARIES})
-    generate_export_header(dsnutil_cpp-log
+    add_library(${dsnutil_cpp_log_LIBRARY} ${LIB_TYPE} ${dsnutil_cpp_log_SRCS} ${dsnutil_cpp_HDRS})
+    target_compile_features(${dsnutil_cpp_log_LIBRARY} PRIVATE cxx_auto_type
+                                                               cxx_lambdas
+                                                               cxx_nullptr
+                                                               cxx_range_for)
+    set_target_properties(${dsnutil_cpp_log_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_LIBRARY}_EXPORTS;${dsnutil_cpp_log_LIBRARY}_EXPORTS")
+    target_link_libraries(${dsnutil_cpp_log_LIBRARY} ${Boost_LIBRARIES})
+    generate_export_header(${dsnutil_cpp_log_LIBRARY}
                            BASE_NAME dsnutil_cpp_log
                            EXPORT_MACRO_NAME dsnutil_cpp_log_EXPORT
                            EXPORT_FILE_NAME include/dsnutil/log/dsnutil_cpp_log_Export.h
                            STATIC_DEFINE dsnutil_cpp_log_BUILT_AS_STATIC)
-    install(TARGETS dsnutil_cpp-log ARCHIVE DESTINATION lib
-                                    LIBRARY DESTINATION lib
-                                    RUNTIME DESTINATION bin)
+    install(TARGETS ${dsnutil_cpp_log_LIBRARY} ARCHIVE DESTINATION lib
+                                               LIBRARY DESTINATION lib
+                                               RUNTIME DESTINATION bin)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/log/dsnutil_cpp_log_Export.h DESTINATION include/dsnutil/log)
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
@@ -146,17 +157,23 @@ endif(dsnutil_cpp_WITH_BOOST_LOG)
 #
 # libdsnutil_cpp-base64: Optional Base64 encoder/decoder functions
 if(dsnutil_cpp_WITH_BASE64)
+    set(dsnutil_cpp_base64_LIBRARY dsnutil_cpp-base64)
+    if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+        set(dsnutil_cpp_base64_LIBRARY dsnutil_cpp-base64d)
+    endif(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
     file(GLOB dsnutil_cpp_base64_SRCS src/base64/*.cpp)
-    add_library(dsnutil_cpp-base64 ${LIB_TYPE} ${dsnutil_cpp_base64_SRCS} ${dsnutil_cpp_HDRS})
-    set_target_properties(dsnutil_cpp-base64 PROPERTIES COMPILE_DEFINITIONS "dsnutil_cpp_EXPORTS")
-    generate_export_header(dsnutil_cpp-base64
+    add_library(${dsnutil_cpp_base64_LIBRARY} ${LIB_TYPE} ${dsnutil_cpp_base64_SRCS} ${dsnutil_cpp_HDRS})
+    if(WIN32)
+        set_target_properties(${dsnutil_cpp_base64_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_base64_LIBRARY}_EXPORTS")
+    endif(WIN32)
+    generate_export_header(${dsnutil_cpp_base64_LIBRARY}
                            BASE_NAME dsnutil_cpp_base64
                            EXPORT_MACRO_NAME dsnutil_cpp_base64_EXPORT
                            EXPORT_FILE_NAME ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/base64/dsnutil_cpp_base64_Export.h
                            STATIC_DEFINE dsnutil_cpp_base64_BUILT_AS_STATIC)
-    install(TARGETS dsnutil_cpp-base64 ARCHIVE DESTINATION lib
-                                       LIBRARY DESTINATION lib
-                                       RUNTIME DESTINATION bin)
+    install(TARGETS ${dsnutil_cpp_base64_LIBRARY} ARCHIVE DESTINATION lib
+                                                  LIBRARY DESTINATION lib
+                                                  RUNTIME DESTINATION bin)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/base64/dsnutil_cpp_base64_Export.h DESTINATION include/dsnutil/base64)
 endif(dsnutil_cpp_WITH_BASE64)
 
