@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.1)
 
 set(dsnutil_cpp_VERSION_MAJOR 0)
 set(dsnutil_cpp_VERSION_MINOR 99)
-set(dsnutil_cpp_VERSION_PATCH 6)
+set(dsnutil_cpp_VERSION_PATCH 7)
 
 option(dsnutil_cpp_BUILD_AS_SUBMODULE "Build dsnutil_cpp as git submodule?" OFF)
 option(dsnutil_cpp_BUILD_SHARED_LIBS "Build dsnutil_cpp as shared libraries" ON)
