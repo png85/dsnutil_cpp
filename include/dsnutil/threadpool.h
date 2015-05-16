@@ -9,9 +9,9 @@
 #include <condition_variable>
 #include <future>
 #include <functional>
-#include <stdexcept>
 
 #include <dsnutil/dsnutil_cpp_Export.h>
+#include <dsnutil/exception.h>
 
 namespace dsn {
 
@@ -26,7 +26,7 @@ public:
         typedef typename std::result_of<F(Args...)>::type return_type;
 
         if (m_stop)
-            throw std::runtime_error("enqueue on stopped ThreadPool");
+            DSN_DEFAULT_EXCEPTION_SIMPLE("Cannot enqueue tasks on stopped ThreadPool!");
 
         auto task = std::make_shared<std::packaged_task<return_type()> >(std::bind(std::forward<F>(f), std::forward<Args>(args)...));
 
