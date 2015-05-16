@@ -1,0 +1,27 @@
+#include <windows.h>
+#include <dsnutil/dsnutil_cpp_version.h>
+
+VS_VERSION_INFO VERSIONINFO
+
+FILEVERSION     0,dsnutil_cpp_VERSION_MAJOR,dsnutil_cpp_VERSION_MINOR,dsnutil_cpp_VERSION_PATCH
+FILEOS          VOS_NT_WINDOWS32
+FILETYPE        VFT_DLL
+
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4" /* US English, ANSI Codepage */
+        BEGIN
+            VALUE "CompanyName",        "#das-system Networks"
+            VALUE "FileDescription",    "#das-system Networks C++ Utility library"
+            VALUE "InternalName",       "dsnutil_cpp"
+            VALUE "LegalCopyright",     "2015 #das-system Networks"
+            VALUE "ProductName",        "dsnutil_cpp"
+            VALUE "ProductVersion",     dsnutil_cpp_VERSION_STRING
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
