@@ -1,5 +1,6 @@
 #include <dsnutil/exception.h>
 #include <iostream>
+#include <cstdlib>
 
 int main()
 {

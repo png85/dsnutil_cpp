@@ -1,5 +1,6 @@
 #include <dsnutil/exception.h>
 #include <sstream>
+#include <cstdlib>
 
 using namespace dsn;
 

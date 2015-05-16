@@ -5,6 +5,7 @@
 
 #include <dsnutil/throwing_assert.h>
 #include <iostream>
+#include <cstdlib>
 
 int main()
 {
