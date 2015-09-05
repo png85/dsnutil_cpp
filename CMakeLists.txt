@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.1)
 
 set(dsnutil_cpp_VERSION_MAJOR 0)
 set(dsnutil_cpp_VERSION_MINOR 99)
-set(dsnutil_cpp_VERSION_PATCH 7)
+set(dsnutil_cpp_VERSION_PATCH 8)
 
 option(dsnutil_cpp_BUILD_AS_SUBMODULE "Build dsnutil_cpp as git submodule?" OFF)
 option(dsnutil_cpp_BUILD_SHARED_LIBS "Build dsnutil_cpp as shared libraries" ON)
@@ -82,7 +82,10 @@ endif(dsnutil_cpp_WITH_LOG4CPP)
 if(dsnutil_cpp_WITH_BOOST_LOG)
     find_package(Boost 1.54 REQUIRED COMPONENTS system thread log log_setup date_time chrono filesystem)
     include_directories(${Boost_INCLUDE_DIRS})
-    add_definitions(-DBOOST_ALL_DYN_LINK -DWITH_BOOST_LOG)
+    add_definitions(-DWITH_BOOST_LOG)
+    if(NOT Boost_USE_STATIC_LIBS)
+      add_definitions(-DBOOST_LOG_DYN_LINK)
+    endif(NOT Boost_USE_STATIC_LIBS)
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
 
@@ -161,8 +164,10 @@ if(dsnutil_cpp_WITH_BOOST_LOG)
         set_target_properties(${dsnutil_cpp_log_LIBRARY} PROPERTIES SONAME "dsnutil_cpp-log"
                                                                     SOVERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH}
                                                                     VERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH})
-    endif(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
-    target_link_libraries(${dsnutil_cpp_log_LIBRARY} ${Boost_LIBRARIES})
+								endif(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
+    if(NOT Boost_USE_STATIC_LIBS)
+      target_link_libraries(${dsnutil_cpp_log_LIBRARY} ${Boost_LIBRARIES})
+    endif(NOT Boost_USE_STATIC_LIBS)
     generate_export_header(${dsnutil_cpp_log_LIBRARY}
                            BASE_NAME dsnutil_cpp_log
                            EXPORT_MACRO_NAME dsnutil_cpp_log_EXPORT
