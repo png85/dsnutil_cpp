@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.1)
 
 set(dsnutil_cpp_VERSION_MAJOR 0)
 set(dsnutil_cpp_VERSION_MINOR 99)
-set(dsnutil_cpp_VERSION_PATCH 9)
+set(dsnutil_cpp_VERSION_PATCH 10)
 
 option(dsnutil_cpp_BUILD_AS_SUBMODULE "Build dsnutil_cpp as git submodule?" OFF)
 option(dsnutil_cpp_BUILD_SHARED_LIBS "Build dsnutil_cpp as shared libraries" ON)
@@ -215,8 +215,10 @@ endif(dsnutil_cpp_WITH_BASE64)
 
 #
 # Enable testing and CDash submission
-include(CTest)
-enable_testing()
+if(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
+  include(CTest)
+  enable_testing()
+endif(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
 
 if(dsnutil_cpp_WITH_EXAMPLES)
     add_subdirectory(examples)
