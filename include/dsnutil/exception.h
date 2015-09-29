@@ -1,3 +1,4 @@
+// -*- C++ -*-
 #ifndef EXCEPTION_H
 #define EXCEPTION_H
 
@@ -21,7 +22,7 @@ public:
     Exception(const std::string& description, const std::string& source, const char* file, size_t line);
     Exception(const std::string& description, const std::string& source, const char* file, const char* line);
 
-    ~Exception();
+    ~Exception() dsnutil_cpp_NOEXCEPT;
 
     const std::string& fullDescription() const;
     const std::string& getSource() const;
