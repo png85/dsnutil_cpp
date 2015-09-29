@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <iostream>
+#include <stdexcept>
 #include <dsnutil/finally.h>
 
 int main(void)
