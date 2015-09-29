@@ -22,7 +22,7 @@ Exception::Exception(const std::string& description, const std::string& source, 
 {
 }
 
-Exception::~Exception()
+Exception::~Exception() dsnutil_cpp_NOEXCEPT
 {
 }
 
