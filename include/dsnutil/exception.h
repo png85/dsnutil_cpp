@@ -21,7 +21,7 @@ public:
     Exception(const std::string& description, const std::string& source, const char* file, size_t line);
     Exception(const std::string& description, const std::string& source, const char* file, const char* line);
 
-    ~Exception() throw();
+    ~Exception();
 
     const std::string& fullDescription() const;
     const std::string& getSource() const;
