@@ -215,8 +215,10 @@ endif(dsnutil_cpp_WITH_BASE64)
 
 #
 # Enable testing and CDash submission
-include(CTest)
-enable_testing()
+if(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
+  include(CTest)
+  enable_testing()
+endif(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
 
 if(dsnutil_cpp_WITH_EXAMPLES)
     add_subdirectory(examples)
