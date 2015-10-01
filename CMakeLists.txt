@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.1)
 
 set(dsnutil_cpp_VERSION_MAJOR 0)
 set(dsnutil_cpp_VERSION_MINOR 99)
-set(dsnutil_cpp_VERSION_PATCH 10)
+set(dsnutil_cpp_VERSION_PATCH 11)
 
 option(dsnutil_cpp_BUILD_AS_SUBMODULE "Build dsnutil_cpp as git submodule?" OFF)
 option(dsnutil_cpp_BUILD_SHARED_LIBS "Build dsnutil_cpp as shared libraries" ON)
@@ -51,6 +51,7 @@ if(WIN32)
 else(WIN32)
 	set(supported_compilers GNU Clang)
 endif(WIN32)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil)
 write_compiler_detection_header(FILE "${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/compiler_features.h"
                                 PREFIX dsnutil_cpp
                                 COMPILERS ${supported_compilers}

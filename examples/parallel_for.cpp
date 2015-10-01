@@ -10,7 +10,7 @@
 
 int main()
 {
-    size_t size = 1e8;
+    size_t size = 1e4;
     std::vector<double> v(size);
 
     dsn::parallel_for(size, [&](const size_t i) {
