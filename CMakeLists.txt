@@ -51,6 +51,7 @@ if(WIN32)
 else(WIN32)
 	set(supported_compilers GNU Clang)
 endif(WIN32)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil)
 write_compiler_detection_header(FILE "${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/compiler_features.h"
                                 PREFIX dsnutil_cpp
                                 COMPILERS ${supported_compilers}
