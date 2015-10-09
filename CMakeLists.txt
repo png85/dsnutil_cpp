@@ -227,11 +227,16 @@ endif(dsnutil_cpp_WITH_EXAMPLES)
 
 
 # Add target for API docs if Doxygen is available
-if(dsnutil_cpp_BUILD_DOCS AND NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
-    include(DocTarget)
+if(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
+    find_package(Doxygen)
     if(DOXYGEN_FOUND)
-        install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile DESTINATION share/doc/libdsnutil)
+        option(dsnutil_cpp_WITH_DOCS "Generate API docs using Doxygen during build?" ON)
+        install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile DESTINATION share/doc/kern)
+        include(DocTarget)
+        if(dsnutil_cpp_WITH_DOCS)
+            add_custom_command(force_doc ALL DEPENDS doc)
+        endif(dsnutil_cpp_WITH_DOCS)
     endif(DOXYGEN_FOUND)
-endif(dsnutil_cpp_BUILD_DOCS AND NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
+endif(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
 
 install(FILES README.md DESTINATION share/doc/dsnutil_cpp)
