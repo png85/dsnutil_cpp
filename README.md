@@ -20,7 +20,7 @@ Use CMake to configure and build as needed. Useful options might be:
 
 * `dsnutil_cpp_BUILD_AS_SUBMODULE` - Build libraries as git submodule (disables Doxygen & CPack)
 * `dsnutil_cpp_BUILD_SHARED_LIBS`  - Select wether to build shared (default) or static libraries
-* `dsnutil_cpp_BUILD_DOCS`         - Build API docs if Doxygen is available
+* `dsnutil_cpp_WITH_DOCS`          - Build API docs if Doxygen is available
 
 Optional features can be enabled/disabled via the following options
 * `dsnutil_cpp_WITH_LOG4CPP`   - log4cpp-based logging functions (deprecated)
