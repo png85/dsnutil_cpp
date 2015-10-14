@@ -30,6 +30,14 @@ public:
     }
 };
 
+class TestC : public dsn::log::Base<TestC> {
+public:
+    void testConstLogging() const
+    {
+        BOOST_LOG_SEV(log, severity::debug) << "Hello from const method!";
+    }
+};
+
 int main()
 {
     dsn::log::init("boost_log-base.log.%N");
@@ -38,6 +46,9 @@ int main()
 
     TestA a;
     TestB b;
+
+    TestC c;
+    c.testConstLogging();
 
     BOOST_LOG_TRIVIAL(debug) << "Goodbye from main!";
 

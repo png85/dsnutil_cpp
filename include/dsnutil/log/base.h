@@ -12,7 +12,6 @@
 #include <boost/log/attributes/constant.hpp>
 #include <boost/log/sources/severity_logger.hpp>
 
-
 namespace dsn {
 namespace log {
 
@@ -21,7 +20,7 @@ namespace log {
      * This template implements a basic logging API using boost::log which can be added to any class
      * by deriving from the template instanced for the class itself.
      *
-     * The class will then inherit a member named \a log which can be used to log messages using the
+     * The class will then inherit a member named \p log which can be used to log messages using the
      * BOOST_LOG_SEV macro and the severity levels defined in boost::log::trivial::severity_level.
      *
      * Log messages will have a string representation of the mangled class name and the value of the
@@ -31,6 +30,7 @@ namespace log {
      * \param T Derived class for which the logging API shall be generated
      *
      * \version 1.0 Initial implementation
+     * \version 1.1 Made \p log mutable so it's possible to log from const methods
      *
      * \author Peter Hille (png!das-system) <peter@das-system-networks.de>
      */
@@ -54,7 +54,7 @@ namespace log {
          * This logger can be used via BOOST_LOG_SEV(log, <severity_level>) << message to log diagnostic
          * information from the instance of the derived class.
          */
-        boost::log::sources::severity_logger<severity> log;
+        mutable boost::log::sources::severity_logger<severity> log;
     };
 }
 }
