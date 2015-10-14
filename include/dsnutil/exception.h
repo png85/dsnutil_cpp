@@ -10,12 +10,27 @@
 
 namespace dsn {
 
+/// \brief Base class for exceptions in dsn code
+///
+/// This class is the base for all exceptions thrown by code from this library
 class dsnutil_cpp_EXPORT Exception : public std::exception {
 private:
+    /// \brief Human-readable error description
     std::string m_description;
+
+    /// \brief Function/method file that triggered the exception
     std::string m_source;
+
+    /// \brief Source file that triggered the exception
     std::string m_file;
+
+    /// \brief Line number where the exception was triggered
     size_t m_line;
+
+    /// \brief Full human-readable error text
+    ///
+    /// This is initialized from the values of the other class members and kept for
+    /// performance reasons.
     mutable std::string m_fullDescription;
 
 public:

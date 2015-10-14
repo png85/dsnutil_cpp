@@ -15,6 +15,15 @@
 
 namespace dsn {
 
+/// \brief Fixed size thread pool
+///
+/// This can be used to quickly implement thread pool of fixed size where arbitrary tasks
+/// can be enqueued and executed in parallel.
+///
+/// The pool is designed so that it can take an arbitrary number of tasks but only executes
+/// a given number of them in parallel.
+///
+/// Enqueuing a tasks will return a std::future so the queued tasks can return values.
 class dsnutil_cpp_EXPORT ThreadPool {
 public:
     ThreadPool(size_t size = std::thread::hardware_concurrency());
@@ -42,11 +51,19 @@ public:
     void stop();
 
 private:
+    /// \brief Currently active worker threads to execute tasks
     std::vector<std::thread> workers;
+
+    /// \brief Tasks queued on the pool
     std::queue<std::function<void()> > tasks;
 
+    /// \brief Mutex for synchronized access to task queue
     std::mutex queue_mutex;
+
+    /// \brief Condition variable for state change notifications
     std::condition_variable condition;
+
+    /// \brief Flag to indicate wether pool execution shall be stopped
     bool m_stop{ false };
 };
 }

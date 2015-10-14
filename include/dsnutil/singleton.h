@@ -17,18 +17,24 @@ class Singleton {
 public:
     /// \brief Access singleton instance
     ///
-    /// Returns a reference to the instance of this singleton.
+    /// \return Reference to the instance of this singleton.
     static dsnutil_cpp_DEPRECATED Derived& getInstance()
     {
         return instanceRef();
     }
 
+    /// \brief Access singleton instance (by reference)
+    ///
+    /// \return Reference to the initialized singleton instance
     static Derived& instanceRef()
     {
         static Derived instance;
         return instance;
     }
 
+    /// \brief Access singleton instance (by pointer)
+    ///
+    /// \return Pointer to the initialized singleton instance
     static Derived* instancePtr()
     {
         return &instanceRef();
