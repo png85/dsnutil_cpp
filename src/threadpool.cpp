@@ -2,6 +2,9 @@
 
 using namespace dsn;
 
+/// \brief Initialize thread pool
+///
+/// \param size Maximum number of tasks to execute in parallel
 ThreadPool::ThreadPool(size_t size)
 {
     for (size_t i = 0; i < size; ++i) {
