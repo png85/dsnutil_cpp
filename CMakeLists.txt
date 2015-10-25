@@ -87,7 +87,7 @@ if(dsnutil_cpp_WITH_BOOST_LOG)
     include_directories(${Boost_INCLUDE_DIRS})
     add_definitions(-DWITH_BOOST_LOG)
     if(NOT Boost_USE_STATIC_LIBS)
-      add_definitions(-DBOOST_LOG_DYN_LINK)
+      add_definitions(-DBOOST_ALL_DYN_LINK)
     endif(NOT Boost_USE_STATIC_LIBS)
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
