@@ -46,11 +46,13 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 
 include(WriteCompilerDetectionHeader)
+list(APPEND supported_compilers GNU Clang)
 if(WIN32)
-	set(supported_compilers GNU MSVC Clang)
-else(WIN32)
-	set(supported_compilers GNU Clang)
+	list(APPEND supported_compilers MSVC)
 endif(WIN32)
+if(APPLE)
+	list(APPEND supported_compilers AppleClang)
+endif(APPLE)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil)
 write_compiler_detection_header(FILE "${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/compiler_features.h"
                                 PREFIX dsnutil_cpp
@@ -85,7 +87,7 @@ if(dsnutil_cpp_WITH_BOOST_LOG)
     include_directories(${Boost_INCLUDE_DIRS})
     add_definitions(-DWITH_BOOST_LOG)
     if(NOT Boost_USE_STATIC_LIBS)
-      add_definitions(-DBOOST_LOG_DYN_LINK)
+      add_definitions(-DBOOST_ALL_DYN_LINK)
     endif(NOT Boost_USE_STATIC_LIBS)
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
