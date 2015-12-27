@@ -11,8 +11,7 @@
 namespace dsn {
 namespace log {
 
-    template <typename levelT = boost::log::trivial::severity_level>
-    class stream_interceptor : public std::streambuf {
+    template <typename levelT = boost::log::trivial::severity_level> class stream_interceptor : public std::streambuf {
     public:
         /** \brief Intercept stream to existing logger
          *
@@ -23,9 +22,8 @@ namespace log {
          * \param name Custom name for this stream interceptor
          * \param severity Severity for messages from the intercepted stream
          */
-        stream_interceptor(std::ostream& stream,
-                           boost::log::sources::severity_logger<levelT>& logger,
-                           const std::string& name, boost::log::trivial::severity_level severity = boost::log::trivial::trace)
+        stream_interceptor(std::ostream& stream, boost::log::sources::severity_logger<levelT>& logger,
+            const std::string& name, boost::log::trivial::severity_level severity = boost::log::trivial::trace)
             : m_orgstream(stream)
             , m_name("unnamed std::ostream")
             , m_logger(logger)
@@ -42,7 +40,8 @@ namespace log {
          * \param name Custom name for this stream interceptor
          * \param severity Severity for messages from the intercepted stream
          */
-        stream_interceptor(std::ostream& stream, const std::string& name, boost::log::trivial::severity_level severity = boost::log::trivial::trace)
+        stream_interceptor(std::ostream& stream, const std::string& name,
+            boost::log::trivial::severity_level severity = boost::log::trivial::trace)
             : m_orgstream(stream)
             , m_loggerPtr(new boost::log::sources::severity_logger<levelT>)
             , m_logger(*m_loggerPtr.get())
@@ -79,7 +78,8 @@ namespace log {
             }
 
             catch (std::bad_alloc& ex) {
-                BOOST_LOG_SEV(m_logger, boost::log::trivial::fatal) << __FILE__ << ":" << __LINE__ << ": Failed to allocate memory for std::ostream: " << ex.what();
+                BOOST_LOG_SEV(m_logger, boost::log::trivial::fatal)
+                    << __FILE__ << ":" << __LINE__ << ": Failed to allocate memory for std::ostream: " << ex.what();
                 throw(ex);
             }
         }
@@ -88,7 +88,8 @@ namespace log {
          *
          * This gets called from all the constructors to setup the stream name and interception.
          *
-         * \internal This helper function gets called from the ctors of this class and shouldn't be invoked from anywhere else!
+         * \internal This helper function gets called from the ctors of this class and shouldn't be invoked from
+         * anywhere else!
          */
         void init(const std::string& name)
         {
@@ -97,7 +98,8 @@ namespace log {
             if (name.length() > 0)
                 m_name = name;
 
-            BOOST_LOG_SEV(m_logger, boost::log::trivial::trace) << "Stream interception '" << m_name << "' started with log level " << m_severity << ".";
+            BOOST_LOG_SEV(m_logger, boost::log::trivial::trace) << "Stream interception '" << m_name
+                                                                << "' started with log level " << m_severity << ".";
         }
 
     protected:
@@ -122,10 +124,7 @@ namespace log {
             return !traits_type::eof();
         }
 
-        virtual int sync()
-        {
-            return 0;
-        }
+        virtual int sync() { return 0; }
 
     private:
         /** \brief Original stream buffer

@@ -2,10 +2,10 @@
 #include <dsnutil/log/sinkmanager.h>
 #include <dsnutil/null_deleter.h>
 
-#include <boost/log/utility/setup/formatter_parser.hpp>
-#include <boost/log/utility/setup/file.hpp>
-#include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/trivial.hpp>
+#include <boost/log/utility/setup/common_attributes.hpp>
+#include <boost/log/utility/setup/file.hpp>
+#include <boost/log/utility/setup/formatter_parser.hpp>
 
 /** \brief Initialize default logging environment
  *
@@ -17,7 +17,9 @@ void dsn::log::init(const std::string& filename)
     boost::log::register_simple_formatter_factory<boost::log::trivial::severity_level, char>("Severity");
     boost::log::add_common_attributes();
 
-    static const std::string format{ "%TimeStamp% %Severity% (P:%ProcessID%,T:%ThreadID%) (%Class%@%This%): %Message%" };
+    static const std::string format{
+        "%TimeStamp% %Severity% (P:%ProcessID%,T:%ThreadID%) (%Class%@%This%): %Message%"
+    };
 
     dsn::log::SinkManager& manager = dsn::log::SinkManager::instanceRef();
 
@@ -40,10 +42,10 @@ void dsn::log::init(const std::string& filename)
         // - daily at 00:00:00
         // - at 1GB size
         typedef boost::log::sinks::text_file_backend backend_t;
-        boost::shared_ptr<backend_t> fileBackend = boost::make_shared<backend_t>(boost::log::keywords::file_name = filename,
-                                                                                 boost::log::keywords::rotation_size = 1024 * 1024 * 1024,
-                                                                                 boost::log::keywords::time_based_rotation = boost::log::sinks::file::rotation_at_time_point(0, 0, 0),
-                                                                                 boost::log::keywords::format = format);
+        boost::shared_ptr<backend_t> fileBackend = boost::make_shared<backend_t>(
+            boost::log::keywords::file_name = filename, boost::log::keywords::rotation_size = 1024 * 1024 * 1024,
+            boost::log::keywords::time_based_rotation = boost::log::sinks::file::rotation_at_time_point(0, 0, 0),
+            boost::log::keywords::format = format);
         typedef boost::log::sinks::synchronous_sink<backend_t> sink_t;
         boost::shared_ptr<sink_t> sink(new sink_t(fileBackend));
         manager.add("file://" + filename, sink);
