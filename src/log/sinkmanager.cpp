@@ -1,7 +1,8 @@
+#include <algorithm>
 #include <dsnutil/compiler_features.h>
+#include <dsnutil/dsnutil_cpp_Export.h>
 #include <dsnutil/log/sinkmanager.h>
 #include <dsnutil/map_sort.h>
-#include <dsnutil/dsnutil_cpp_Export.h>
 
 using namespace dsn::log;
 

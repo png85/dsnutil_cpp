@@ -3,11 +3,11 @@
 
 #include <dsnutil/compiler_features.h>
 
-#include <typeinfo>
 #include <iostream>
+#include <typeinfo>
 
-#include <log4cpp/Category.hh>
 #include <log4cpp/BasicLayout.hh>
+#include <log4cpp/Category.hh>
 #include <log4cpp/OstreamAppender.hh>
 
 namespace dsn {

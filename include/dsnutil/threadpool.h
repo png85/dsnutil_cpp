@@ -1,14 +1,14 @@
 #ifndef THREADPOOL_H
 #define THREADPOOL_H 1
 
-#include <vector>
-#include <queue>
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
-#include <future>
 #include <functional>
+#include <future>
+#include <memory>
+#include <mutex>
+#include <queue>
+#include <thread>
+#include <vector>
 
 #include <dsnutil/dsnutil_cpp_Export.h>
 #include <dsnutil/exception.h>

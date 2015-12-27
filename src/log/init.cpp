@@ -2,10 +2,10 @@
 #include <dsnutil/log/sinkmanager.h>
 #include <dsnutil/null_deleter.h>
 
-#include <boost/log/utility/setup/formatter_parser.hpp>
-#include <boost/log/utility/setup/file.hpp>
-#include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/trivial.hpp>
+#include <boost/log/utility/setup/common_attributes.hpp>
+#include <boost/log/utility/setup/file.hpp>
+#include <boost/log/utility/setup/formatter_parser.hpp>
 
 /** \brief Initialize default logging environment
  *

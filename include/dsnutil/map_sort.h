@@ -1,10 +1,10 @@
 #ifndef DSN_MAP_HH
 #define DSN_MAP_HH
 
-#include <algorithm>
+#include <dsnutil/map_sort.h>
+#include <functional>
 #include <map>
 #include <vector>
-#include <functional>
 
 namespace dsn {
 

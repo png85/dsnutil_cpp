@@ -9,10 +9,10 @@
 #ifndef DSNUTIL_ASSERT_HPP
 #define DSNUTIL_ASSERT_HPP 1
 
+#include <cassert>
 #include <dsnutil/exception.h>
 #include <stdexcept>
 #include <string>
-#include <cassert>
 
 #ifndef NDEBUG
 

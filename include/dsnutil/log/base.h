@@ -4,13 +4,13 @@
 #include <dsnutil/compiler_features.h>
 #include <dsnutil/log/types.h>
 
-#include <typeinfo>
 #include <sstream>
+#include <typeinfo>
 
-#include <boost/log/core.hpp>
-#include <boost/log/trivial.hpp>
 #include <boost/log/attributes/constant.hpp>
+#include <boost/log/core.hpp>
 #include <boost/log/sources/severity_logger.hpp>
+#include <boost/log/trivial.hpp>
 
 namespace dsn {
 namespace log {

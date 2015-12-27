@@ -2,13 +2,13 @@
 #define SINKMANAGER_H
 
 #include <dsnutil/dsnutil_cpp_Export.h>
-#include <dsnutil/singleton.h>
 #include <dsnutil/log/base.h>
+#include <dsnutil/singleton.h>
 
+#include <boost/log/sinks.hpp>
+#include <boost/shared_ptr.hpp>
 #include <map>
 #include <string>
-#include <boost/shared_ptr.hpp>
-#include <boost/log/sinks.hpp>
 
 namespace dsn {
 namespace log {
