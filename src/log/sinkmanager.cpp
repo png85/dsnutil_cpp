@@ -26,11 +26,8 @@ SinkManager::~SinkManager()
 
 bool SinkManager::exists(const std::string& name) const
 {
-    sink_storage::const_iterator it = m_sinks.find(name);
-    if (it != m_sinks.end())
-        return true;
-
-    return false;
+    auto it = m_sinks.find(name);
+    return it != m_sinks.end();
 }
 
 bool SinkManager::add(const std::string& name, const SinkManager::sink_ptr& sink)
