@@ -25,13 +25,15 @@ void dsn::parallel_for(const size_t size, std::function<void(const size_t)> func
     // start worker threads
     for (size_t threadID = 0; threadID < numThreads; ++threadID) {
         auto thread_func = [&]() {
-            for (size_t i = threadID; i<size; i += numThreads)
+            for (size_t i = threadID; i < size; i += numThreads) {
                 func(i);
+            }
         };
         threads.push_back(std::thread(thread_func));
     }
 
     // wait for all threads to finish
-    for (auto& thread : threads)
+    for (auto& thread : threads) {
         thread.join();
+    }
 }

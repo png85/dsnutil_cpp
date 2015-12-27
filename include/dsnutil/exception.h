@@ -5,8 +5,8 @@
 #include <exception>
 #include <string>
 
-#include <dsnutil/dsnutil_cpp_Export.h>
 #include <dsnutil/compiler_features.h>
+#include <dsnutil/dsnutil_cpp_Export.h>
 
 namespace dsn {
 

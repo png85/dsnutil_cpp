@@ -11,11 +11,13 @@ ThreadPool::ThreadPool(size_t size)
         workers.emplace_back([this] {
             for (;;) {
                 std::unique_lock<std::mutex> lock(this->queue_mutex);
-                while (!this->m_stop && this->tasks.empty())
+                while (!this->m_stop && this->tasks.empty()) {
                     this->condition.wait(lock);
+                }
 
-                if (this->m_stop && this->tasks.empty())
+                if (this->m_stop && this->tasks.empty()) {
                     return;
+                }
 
                 std::function<void()> task(this->tasks.front());
                 this->tasks.pop();
@@ -26,10 +28,7 @@ ThreadPool::ThreadPool(size_t size)
     }
 }
 
-ThreadPool::~ThreadPool()
-{
-    stop();
-}
+ThreadPool::~ThreadPool() { stop(); }
 
 void ThreadPool::stop()
 {
@@ -40,6 +39,7 @@ void ThreadPool::stop()
 
     condition.notify_all();
 
-    for (auto& worker : workers)
+    for (auto& worker : workers) {
         worker.join();
+    }
 }

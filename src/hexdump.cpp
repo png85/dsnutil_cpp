@@ -47,26 +47,29 @@ void hexdump(const void* mem, size_t length, std::ostream& out)
 
         // ... then we print the data in hex byte-wise...
         for (int j = 0; j < 16; j++) {
-            if (i + j < length)
+            if (i + j < length) {
                 t += sprintf(t, "%02X", src[j] & 0xff);
-            else
+            } else {
                 t += sprintf(t, "  ");
+            }
 
             // print a tabulator after the first group of 8 bytes
-            if (j == 7)
+            if (j == 7) {
                 t += sprintf(t, "\t");
-            else
+            } else {
                 t += sprintf(t, " ");
+            }
         }
 
         // ... and finally we display all printable characters
         t += sprintf(t, "|");
         for (int j = 0; j < 16; j++) {
             if (i + j < length) {
-                if (isprint((unsigned char)src[j]))
+                if (isprint(static_cast<unsigned char>(src[j])) != 0) {
                     t += sprintf(t, "%c", src[j]);
-                else
+                } else {
                     t += sprintf(t, ".");
+                }
             } else {
                 t += sprintf(t, " ");
             }
