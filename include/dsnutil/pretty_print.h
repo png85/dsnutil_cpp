@@ -9,19 +9,11 @@ namespace dsn {
 
 namespace pretty_print {
 
-    template <typename T>
-    void print(std::ostream& o, const T& t)
-    {
-        o << t;
-    }
+    template <typename T> void print(std::ostream& o, const T& t) { o << t; }
 
-    void print(std::ostream& o, const std::string& s)
-    {
-        o << '"' << s << '"';
-    }
+    void print(std::ostream& o, const std::string& s) { o << '"' << s << '"'; }
 
-    template <typename kT, typename vT>
-    void print(std::ostream& o, const std::pair<kT, vT> p)
+    template <typename kT, typename vT> void print(std::ostream& o, const std::pair<kT, vT> p)
     {
         o << '{';
         print(o, p.first);
@@ -30,8 +22,7 @@ namespace pretty_print {
         o << '}';
     }
 
-    template <typename I>
-    void print_loop(std::ostream& o, I b, I e)
+    template <typename I> void print_loop(std::ostream& o, I b, I e)
     {
         o << '[';
         if (b == e) {
@@ -50,11 +41,7 @@ namespace pretty_print {
         o << ']';
     }
 
-    template <typename T>
-    void p(T const& t, std::ostream& o = std::cout)
-    {
-        o << t << '\n' << std::flush;
-    }
+    template <typename T> void p(T const& t, std::ostream& o = std::cout) { o << t << '\n' << std::flush; }
 
 } // namespace pretty_print
 } // namespace dsn
@@ -62,7 +49,8 @@ namespace pretty_print {
 namespace std {
 
 template <typename T, std::size_t N>
-typename std::enable_if<std::is_array<T[]>::value && !std::is_same<T, char>::value && !std::is_same<T, wchar_t>::value, std::ostream&>::type
+typename std::enable_if<std::is_array<T[]>::value && !std::is_same<T, char>::value && !std::is_same<T, wchar_t>::value,
+    std::ostream&>::type
 operator<<(std::ostream& o, T const (&a)[N])
 {
     dsn::pretty_print::print_loop(o, &a[0], &a[N]);
@@ -70,8 +58,8 @@ operator<<(std::ostream& o, T const (&a)[N])
 }
 
 template <typename C, typename I = typename C::const_iterator>
-typename std::enable_if<!std::is_same<C, std::string>::value, std::ostream&>::type
-operator<<(std::ostream& o, C const& c)
+typename std::enable_if<!std::is_same<C, std::string>::value, std::ostream&>::type operator<<(
+    std::ostream& o, C const& c)
 {
     dsn::pretty_print::print_loop(o, c.begin(), c.end());
     return o;

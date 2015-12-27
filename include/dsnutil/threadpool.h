@@ -37,7 +37,8 @@ public:
         if (m_stop)
             DSN_DEFAULT_EXCEPTION_SIMPLE("Cannot enqueue tasks on stopped ThreadPool!");
 
-        auto task = std::make_shared<std::packaged_task<return_type()> >(std::bind(std::forward<F>(f), std::forward<Args>(args)...));
+        auto task = std::make_shared<std::packaged_task<return_type()> >(
+            std::bind(std::forward<F>(f), std::forward<Args>(args)...));
 
         std::future<return_type> res = task->get_future();
         {

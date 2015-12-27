@@ -17,8 +17,7 @@ namespace dsn {
  * @param in Map from which the keys shall be extracted
  * @param out Reference to a vector<kT> that shall hold the extracted keys
  */
-template <typename kT, typename vT>
-void map_keys(const std::map<kT, vT>& in, std::vector<kT>& out)
+template <typename kT, typename vT> void map_keys(const std::map<kT, vT>& in, std::vector<kT>& out)
 {
     out.clear();
     out.resize(in.size());
@@ -34,8 +33,7 @@ void map_keys(const std::map<kT, vT>& in, std::vector<kT>& out)
  * @param in Map from which the keys shall be extracted
  * @return vector<kT> that contains all keys for in
  */
-template <typename kT, typename vT>
-std::vector<kT> map_keys(const std::map<kT, vT>& in)
+template <typename kT, typename vT> std::vector<kT> map_keys(const std::map<kT, vT>& in)
 {
     std::vector<kT> out;
     map_keys(in, out);
@@ -56,15 +54,13 @@ std::vector<kT> map_keys(const std::map<kT, vT>& in)
  *
  * @note vT needs to implement operator < for this template to work!
  */
-template <typename kT, typename vT>
-void map_sort(std::map<kT, vT>& in, std::vector<kT>& out)
+template <typename kT, typename vT> void map_sort(std::map<kT, vT>& in, std::vector<kT>& out)
 {
     map_keys(in, out);
     std::sort(out.begin(), out.end(), [&](kT a, kT b) { return in[a] < in[b]; });
 }
 
-template <typename kT, typename vT>
-std::vector<kT> map_sort(std::map<kT, vT>& in)
+template <typename kT, typename vT> std::vector<kT> map_sort(std::map<kT, vT>& in)
 {
     std::vector<kT> keys = map_keys(in);
     map_sort(in, keys);

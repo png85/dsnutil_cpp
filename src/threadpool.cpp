@@ -26,10 +26,7 @@ ThreadPool::ThreadPool(size_t size)
     }
 }
 
-ThreadPool::~ThreadPool()
-{
-    stop();
-}
+ThreadPool::~ThreadPool() { stop(); }
 
 void ThreadPool::stop()
 {

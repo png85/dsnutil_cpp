@@ -4,12 +4,9 @@ static const std::string base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                         "abcdefghijklmnopqrstuvwxyz"
                                         "0123456789+/";
 
-static inline bool is_base64(unsigned char c)
-{
-    return (isalnum(c) || (c == '+') || (c == '/'));
-}
+static inline bool is_base64(unsigned char c) { return ((isalnum(c) != 0) || (c == '+') || (c == '/')); }
 
-std::string dsn::base64::encode(const unsigned char *bytes_to_encode, size_t in_len)
+std::string dsn::base64::encode(const unsigned char* bytes_to_encode, size_t in_len)
 {
     std::string ret;
     int i = 0;

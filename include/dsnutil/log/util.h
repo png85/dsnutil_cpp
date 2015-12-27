@@ -8,8 +8,8 @@ namespace dsn {
 namespace log {
     namespace util {
 
-        severity dsnutil_cpp_log_EXPORT severityFromString(const std::string& str,
-                                                           severity default_severity = severity::debug);
+        severity dsnutil_cpp_log_EXPORT severityFromString(
+            const std::string& str, severity default_severity = severity::debug);
     }
 }
 }

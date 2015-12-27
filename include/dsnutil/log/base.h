@@ -34,8 +34,7 @@ namespace log {
      *
      * \author Peter Hille (png!das-system) <peter@das-system-networks.de>
      */
-    template <typename T>
-    class Base {
+    template <typename T> class Base {
     public:
         Base<T>()
         {

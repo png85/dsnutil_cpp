@@ -12,16 +12,12 @@ namespace dsn {
 ///
 /// This template can be used to implement the "singleton" design pattern
 /// on any class.
-template <class Derived>
-class Singleton {
+template <class Derived> class Singleton {
 public:
     /// \brief Access singleton instance
     ///
     /// \return Reference to the instance of this singleton.
-    static dsnutil_cpp_DEPRECATED Derived& getInstance()
-    {
-        return instanceRef();
-    }
+    static dsnutil_cpp_DEPRECATED Derived& getInstance() { return instanceRef(); }
 
     /// \brief Access singleton instance (by reference)
     ///
@@ -35,10 +31,7 @@ public:
     /// \brief Access singleton instance (by pointer)
     ///
     /// \return Pointer to the initialized singleton instance
-    static Derived* instancePtr()
-    {
-        return &instanceRef();
-    }
+    static Derived* instancePtr() { return &instanceRef(); }
 
 protected:
     /// \brief Default constructor

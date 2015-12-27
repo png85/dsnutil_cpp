@@ -27,7 +27,9 @@ namespace dsn {
  * @version 1.0 Initial implementation
  */
 template <class Derived>
-class dsnutil_cpp_DEPRECATED_MSG("LoggingBase template is deprecated and will be removed in future dsnutil_cpp versions!") LoggingBase {
+class dsnutil_cpp_DEPRECATED_MSG(
+    "LoggingBase template is deprecated and will be removed in future dsnutil_cpp versions!") LoggingBase
+{
 public:
     /**
      * @brief Initialize base logging API

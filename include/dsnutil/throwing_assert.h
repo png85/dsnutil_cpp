@@ -47,14 +47,11 @@ inline void throwing_assert(bool test, const char* test_str, const char* source,
 }
 
 #if (dsnutil_cpp_COMPILER_IS_GNU || dsnutil_cpp_COMPILER_IS_Clang)
-#define assert3(test, file, line) \
-    (::throwing_assert(test, #test, __PRETTY_FUNCTION__, file, line))
+#define assert3(test, file, line) (::throwing_assert(test, #test, __PRETTY_FUNCTION__, file, line))
 #elif (dsnutil_cpp_COMPILER_IS_MSVC)
-#define assert3(test, file, line) \
-    (::throwing_assert(test, #test, __FUNCSIG__, file, line))
+#define assert3(test, file, line) (::throwing_assert(test, #test, __FUNCSIG__, file, line))
 #else
-#define assert3(test, file, line) \
-    (::throwing_assert(test, #test, #file ":" #line, file, line));
+#define assert3(test, file, line) (::throwing_assert(test, #test, #file ":" #line, file, line));
 #endif
 
 #endif // !NDEBUG

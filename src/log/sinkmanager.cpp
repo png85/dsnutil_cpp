@@ -6,9 +6,7 @@
 
 using namespace dsn::log;
 
-SinkManager::SinkManager()
-{
-}
+SinkManager::SinkManager() {}
 
 SinkManager::~SinkManager()
 {
@@ -63,15 +61,13 @@ bool SinkManager::remove(const std::string& name)
     return true;
 }
 
-std::vector<std::string> SinkManager::sinks() const
-{
-    return dsn::map_keys(m_sinks);
-}
+std::vector<std::string> SinkManager::sinks() const { return dsn::map_keys(m_sinks); }
 
 SinkManager::sink_ptr SinkManager::sink(const std::string& name)
 {
     if (!exists(name)) {
-        BOOST_LOG_SEV(log, severity::error) << "Tried access non-existant sink '" << name.c_str() << "'; returning nullptr!";
+        BOOST_LOG_SEV(log, severity::error) << "Tried access non-existant sink '" << name.c_str()
+                                            << "'; returning nullptr!";
         return sink_ptr(dsnutil_cpp_NULLPTR);
     }
 
