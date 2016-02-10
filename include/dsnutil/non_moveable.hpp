@@ -12,7 +12,7 @@ private:
 
 public:
     non_moveable() = default;
-    non_moveable(const non_moveable&&) = default;
+    non_moveable(const non_moveable&) = default;
     non_moveable& operator=(const non_moveable&) = default;
 };
 
