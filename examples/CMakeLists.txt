@@ -1,6 +1,7 @@
 #
 # List of test binaries
-list(APPEND example_BINS "finally" "pretty_print" "parallel_for" "threadpool" "singleton" "map_sort" "hexdump" "reverse" "countof" "assert" "exception")
+list(APPEND example_BINS "finally" "pretty_print" "parallel_for" "threadpool" "singleton" "map_sort" "hexdump"
+    "reverse" "countof" "assert" "exception" "observing_ptr")
 
 #
 # Append boost::log tests to list if boost::log is enabled

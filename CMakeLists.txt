@@ -105,7 +105,7 @@ configure_file(version.h.in ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/dsnutil_
 
 #
 # libdsnutil_cpp: Main library
-file(GLOB_RECURSE dsnutil_cpp_HDRS include/dsnutil/*.h)
+file(GLOB_RECURSE dsnutil_cpp_HDRS include/dsnutil/*.h include/dsnutil/*.hpp)
 file(GLOB dsnutil_cpp_SRCS src/*.cpp)
 if(WIN32)
     file(GLOB dsnutil_cpp_RC_SRCS src/*.rc)
