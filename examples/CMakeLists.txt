@@ -1,6 +1,6 @@
 #
 # List of test binaries
-list(APPEND example_BINS "parallel_for" "threadpool" "hexdump" "reverse")
+list(APPEND example_BINS "parallel_for" "threadpool" "reverse")
 
 #
 # Append boost::log tests to list if boost::log is enabled
