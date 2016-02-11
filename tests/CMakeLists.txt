@@ -1,5 +1,5 @@
 set(test_SOURCES finally.cpp singleton.cpp observable.cpp observing_ptr.cpp pretty_print.cpp exception.cpp
-    throwing_assert.cpp)
+    throwing_assert.cpp countof.cpp)
 if(dsnutil_cpp_WITH_BASE64)
     list(APPEND test_SOURCES base64.cpp)
 endif(dsnutil_cpp_WITH_BASE64)
