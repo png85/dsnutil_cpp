@@ -12,6 +12,7 @@ option(dsnutil_cpp_WITH_BASE64 "Build libdsnutil_cpp-base64" ON)
 option(dsnutil_cpp_WITH_EXAMPLES "Build demo executables" ON)
 option(dsnutil_cpp_WITH_BOOST_LOG "Enable support for boost::log based logging API" ON)
 option(dsnutil_cpp_WITH_LOG4CPP "Enable support for logging with log4cpp" OFF)
+option(dsnutil_cpp_WITH_TESTS "Enable tests for dsnutil_cpp" ON)
 
 #
 # Append cmake-modules/ to module path for custom macros
@@ -79,18 +80,25 @@ if(dsnutil_cpp_WITH_LOG4CPP)
     add_definitions(-DWITH_LOG4CPP)
 endif(dsnutil_cpp_WITH_LOG4CPP)
 
+set(Boost_COMPONENTS "")
+if(dsnutil_cpp_WITH_TESTS)
+    # Building tests requires Boost::Test
+    list(APPEND Boost_COMPONENTS unit_test_framework)
+endif(dsnutil_cpp_WITH_TESTS)
 
 #
-# If boost::log is requested we'll need to locate Boost headers & libs...
+# If boost::log is requested we'll need to locate additional Boost headers & libs...
 if(dsnutil_cpp_WITH_BOOST_LOG)
-    find_package(Boost 1.54 REQUIRED COMPONENTS system thread log log_setup date_time chrono filesystem)
-    include_directories(${Boost_INCLUDE_DIRS})
+    list(APPEND Boost_COMPONENTS system thread log log_setup date_time chrono filesystem)
     add_definitions(-DWITH_BOOST_LOG)
-    if(NOT Boost_USE_STATIC_LIBS)
-      add_definitions(-DBOOST_ALL_DYN_LINK)
-    endif(NOT Boost_USE_STATIC_LIBS)
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
+message(STATUS "Boost_COMPONENTS: ${Boost_COMPONENTS}")
+find_package(Boost 1.54 REQUIRED COMPONENTS ${Boost_COMPONENTS})
+include_directories(${Boost_INCLUDE_DIRS})
+if(NOT Boost_USE_STATIC_LIBS)
+  add_definitions(-DBOOST_ALL_DYN_LINK)
+endif(NOT Boost_USE_STATIC_LIBS)
 
 #
 # Get compiler flags & libraries for threading support
@@ -226,6 +234,10 @@ endif(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
 if(dsnutil_cpp_WITH_EXAMPLES)
     add_subdirectory(examples)
 endif(dsnutil_cpp_WITH_EXAMPLES)
+
+if(dsnutil_cpp_WITH_TESTS)
+    add_subdirectory(tests)
+endif(dsnutil_cpp_WITH_TESTS)
 
 
 # Add target for API docs if Doxygen is available
