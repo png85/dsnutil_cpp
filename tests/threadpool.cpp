@@ -16,12 +16,19 @@ BOOST_AUTO_TEST_CASE(default_construction)
 {
     unique_ThreadPool pool{ new ThreadPool() };
     BOOST_CHECK(pool.get() != nullptr);
+    std::cout << "Created ThreadPool with " << pool->num_workers() << " workers." << std::endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+    BOOST_CHECK(pool->num_workers() == std::thread::hardware_concurrency());
+    BOOST_CHECK(pool->idle() == true);
 }
 
 BOOST_AUTO_TEST_CASE(construction_with_size)
 {
     unique_ThreadPool pool{ new ThreadPool(2) };
     BOOST_CHECK(pool.get() != nullptr);
+    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+    BOOST_CHECK(pool->num_workers() == 2);
+    BOOST_CHECK(pool->idle() == true);
 }
 
 BOOST_AUTO_TEST_CASE(enqueue_void)
@@ -62,12 +69,7 @@ BOOST_AUTO_TEST_CASE(enqueue_void)
         std::cout << "Waiting for workers to finish..." << std::endl;
     }
 
-    // we're using this lambda hack to wait for all workers to finish before exiting the test
-    std::function<bool(void)> done = [&]() -> bool {
-        ScopedGuard g(mtx);
-        return (workers_completed == num_workers);
-    };
-    while (!done()) {
+    while (!pool.idle()) {
         std::this_thread::yield();
     }
 

@@ -1,6 +1,7 @@
 #ifndef THREADPOOL_H
 #define THREADPOOL_H 1
 
+#include <atomic>
 #include <condition_variable>
 #include <functional>
 #include <future>
@@ -51,6 +52,11 @@ public:
 
     void stop();
 
+    size_t num_workers() const;
+
+    bool idle() const;
+    size_t idle_count() const;
+
 private:
     /// \brief Currently active worker threads to execute tasks
     std::vector<std::thread> workers;
@@ -66,6 +72,9 @@ private:
 
     /// \brief Flag to indicate wether pool execution shall be stopped
     bool m_stop{ false };
+
+    /// \brief Number of currently idle worker threads
+    std::atomic<size_t> m_idle_workers{ 0 };
 };
 }
 
