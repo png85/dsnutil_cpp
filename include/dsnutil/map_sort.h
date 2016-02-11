@@ -54,13 +54,18 @@ template <typename kT, typename vT> std::vector<kT> map_keys(const std::map<kT, 
  *
  * @note vT needs to implement operator < for this template to work!
  */
-template <typename kT, typename vT> void map_sort(std::map<kT, vT>& in, std::vector<kT>& out)
+template <typename kT, typename vT> void map_sort(const std::map<kT, vT>& in, std::vector<kT>& out)
 {
     map_keys(in, out);
-    std::sort(out.begin(), out.end(), [&](kT a, kT b) { return in[a] < in[b]; });
+    std::sort(out.begin(), out.end(), [&](kT a, kT b) {
+        auto it1 = in.find(a);
+        auto it2 = in.find(b);
+
+        return it1->second < it2->second;
+    });
 }
 
-template <typename kT, typename vT> std::vector<kT> map_sort(std::map<kT, vT>& in)
+template <typename kT, typename vT> std::vector<kT> map_sort(const std::map<kT, vT>& in)
 {
     std::vector<kT> keys = map_keys(in);
     map_sort(in, keys);
@@ -80,14 +85,14 @@ template <typename kT, typename vT> std::vector<kT> map_sort(std::map<kT, vT>& i
  * @param comparator Custom comparator function for sorting the map
  */
 template <typename kT, typename vT>
-void map_sort(std::map<kT, vT>& in, std::vector<kT>& out, const std::function<bool(kT, kT)>& comparator)
+void map_sort(const std::map<kT, vT>& in, std::vector<kT>& out, const std::function<bool(kT, kT)>& comparator)
 {
     map_keys(in, out);
     std::sort(out.begin(), out.end(), comparator);
 }
 
 template <typename kT, typename vT>
-std::vector<kT> map_sort(std::map<kT, vT>& in, const std::function<bool(kT, kT)>& comparator)
+std::vector<kT> map_sort(const std::map<kT, vT>& in, const std::function<bool(kT, kT)>& comparator)
 {
     std::vector<kT> keys = map_keys(in);
     map_sort(in, keys, comparator);
