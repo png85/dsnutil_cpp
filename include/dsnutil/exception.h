@@ -34,6 +34,7 @@ private:
     mutable std::string m_fullDescription;
 
 public:
+    Exception() = delete;
     Exception(const std::string& description, const std::string& source, const char* file, size_t line);
     Exception(const std::string& description, const std::string& source, const char* file, const char* line);
 
