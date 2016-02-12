@@ -39,6 +39,9 @@ public:
 
     ~Exception() dsnutil_cpp_NOEXCEPT;
 
+    Exception(const Exception&) = default;
+    Exception& operator=(const Exception&) = default;
+
     const std::string& fullDescription() const;
     const std::string& getSource() const;
     const std::string& getFile() const;
