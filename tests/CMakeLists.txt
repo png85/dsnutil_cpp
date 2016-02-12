@@ -1,6 +1,6 @@
 set(test_SOURCES finally.cpp singleton.cpp observable.cpp observing_ptr.cpp pretty_print.cpp exception.cpp
     throwing_assert.cpp countof.cpp map_sort.cpp hexdump.cpp reverse.cpp parallel_for.cpp threadpool.cpp
-    reference_counted.cpp intrusive_ptr.cpp make_intrusive.cpp)
+    reference_counted.cpp intrusive_ptr.cpp make_intrusive.cpp lambda_unique_ptr.cpp)
 if(dsnutil_cpp_WITH_BASE64)
     list(APPEND test_SOURCES base64.cpp)
 endif(dsnutil_cpp_WITH_BASE64)
