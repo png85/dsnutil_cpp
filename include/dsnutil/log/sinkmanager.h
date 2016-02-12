@@ -13,6 +13,9 @@
 namespace dsn {
 namespace log {
 
+    /// \brief Manager for log sinks
+    ///
+    /// This class can be used to manage log sinks based on \p boost::log::sinks::sink
     class dsnutil_cpp_EXPORT SinkManager : public dsn::Singleton<dsn::log::SinkManager>, public Base<SinkManager> {
         friend class dsn::Singleton<SinkManager>;
         SinkManager();

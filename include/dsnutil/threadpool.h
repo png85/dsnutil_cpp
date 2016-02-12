@@ -30,6 +30,15 @@ public:
     ThreadPool(size_t size = std::thread::hardware_concurrency());
     ~ThreadPool();
 
+    /// \brief Enqueue a task on this thread pool
+    ///
+    /// Queues a task for execution in the thread pool. The task will appended to \p tasks and executed by
+    /// one of the threads in \p workers at some point in the future.
+    ///
+    /// \param f Function that shall be executed in the thread pool (this can be anything callable)
+    /// \param args Variable arguments to \a f
+    ///
+    /// \return \p std::future<> with the result of \a f(args)
     template <class F, class... Args>
     auto enqueue(F&& f, Args&&... args) -> std::future<typename std::result_of<F(Args...)>::type>
     {
