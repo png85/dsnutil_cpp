@@ -113,6 +113,8 @@ observing_ptr<T>::observing_ptr(const observing_ptr<T>& other)
 /// \brief Copy-assign from other observing_ptr
 ///
 /// \param other Reference to another \a observing_ptr that shall be copied
+///
+/// \return reference to this object after the assignment
 template <typename T> observing_ptr<T>& observing_ptr<T>::operator=(const observing_ptr<T>& other)
 {
     reset(other.m_object);
@@ -134,6 +136,8 @@ observing_ptr<T>::observing_ptr(observing_ptr<T>&& other) noexcept : m_object(ot
 /// \brief Move-assign from another observing_ptr
 ///
 /// \param other rvalue reference to another \a observing_ptr that we shall take over
+///
+/// \return reference to this object after the assignment operation
 template <typename T> observing_ptr<T>& observing_ptr<T>::operator=(observing_ptr<T>&& other) noexcept
 {
     reset();
