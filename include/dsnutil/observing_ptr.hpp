@@ -15,7 +15,7 @@ private:
     virtual void observable_destroyed(observable& o) override;
 
 public:
-    observing_ptr() = default;
+    observing_ptr() { m_object = nullptr; }
 
     observing_ptr(T* obj);
 
