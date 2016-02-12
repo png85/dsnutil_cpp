@@ -18,7 +18,7 @@ protected:
     observable_mutex_type m_observersMutex;
 
 public:
-    ~observable();
+    virtual ~observable();
     void addObserver(observer& observer);
     bool removeObserver(observer& observer);
     bool moveObserver(observer& old_observer, observer& new_observer);
