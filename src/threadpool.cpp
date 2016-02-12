@@ -34,6 +34,10 @@ ThreadPool::ThreadPool(size_t size)
 
 ThreadPool::~ThreadPool() { stop(); }
 
+/// \brief Stop thread pool execution
+///
+/// Prevents new tasks from being scheduled on the thread pool and ends the worker threads once
+/// they're done processing.
 void ThreadPool::stop()
 {
     {
