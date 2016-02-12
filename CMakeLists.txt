@@ -124,13 +124,7 @@ if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(dsnutil_cpp_LIBRARY dsnutil_cppd)
 endif(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
 add_library(${dsnutil_cpp_LIBRARY} ${LIB_TYPE} ${dsnutil_cpp_SRCS} ${dsnutil_cpp_HDRS})
-target_compile_features(${dsnutil_cpp_LIBRARY} PRIVATE cxx_auto_type
-                                               cxx_lambdas
-                                               cxx_nullptr
-                                               cxx_range_for)
-target_compile_features(${dsnutil_cpp_LIBRARY} PUBLIC cxx_lambdas
-                                               cxx_variadic_templates
-                                               cxx_strong_enums)
+set_target_properties(${dsnutil_cpp_LIBRARY} PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED ON)
 if(WIN32)
     set_target_properties(${dsnutil_cpp_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_LIBRARY}_EXPORTS")
 endif(WIN32)
@@ -164,10 +158,7 @@ if(dsnutil_cpp_WITH_BOOST_LOG)
         list(APPEND dsnutil_cpp_log_SRCS ${dsnutil_cpp_log_RC_SRCS})
     endif(WIN32)
     add_library(${dsnutil_cpp_log_LIBRARY} ${LIB_TYPE} ${dsnutil_cpp_log_SRCS} ${dsnutil_cpp_HDRS})
-    target_compile_features(${dsnutil_cpp_log_LIBRARY} PRIVATE cxx_auto_type
-                                                               cxx_lambdas
-                                                               cxx_nullptr
-                                                               cxx_range_for)
+    set_target_properties(${dsnutil_cpp_log_LIBRARY} PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED ON)
     if(WIN32)
         set_target_properties(${dsnutil_cpp_log_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_LIBRARY}_EXPORTS;${dsnutil_cpp_log_LIBRARY}_EXPORTS")
     endif(WIN32)
