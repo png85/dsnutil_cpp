@@ -42,6 +42,9 @@ public:
     Exception(const Exception&) = default;
     Exception& operator=(const Exception&) = default;
 
+    Exception(Exception&&) = default;
+    Exception& operator=(Exception&&) = default;
+
     const std::string& fullDescription() const;
     const std::string& getSource() const;
     const std::string& getFile() const;
