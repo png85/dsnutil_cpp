@@ -38,7 +38,7 @@ public:
     Exception(const std::string& description, const std::string& source, const char* file, size_t line);
     Exception(const std::string& description, const std::string& source, const char* file, const char* line);
 
-    ~Exception() dsnutil_cpp_NOEXCEPT;
+    virtual ~Exception() dsnutil_cpp_NOEXCEPT;
 
     Exception(const Exception&) = default;
     Exception& operator=(const Exception&) = default;
