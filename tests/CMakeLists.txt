@@ -5,7 +5,7 @@ if(dsnutil_cpp_WITH_BASE64)
     list(APPEND test_SOURCES base64.cpp)
 endif(dsnutil_cpp_WITH_BASE64)
 if(dsnutil_cpp_WITH_BOOST_LOG)
-    list(APPEND test_SOURCES log_init.cpp log_base.cpp)
+    list(APPEND test_SOURCES log_init.cpp log_base.cpp log_sinkmanager.cpp)
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
 foreach(test_src ${test_SOURCES})
