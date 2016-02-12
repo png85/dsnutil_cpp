@@ -11,7 +11,6 @@ option(dsnutil_cpp_BUILD_DOCS "Build dsnutil_cpp docs if Doxygen is available?" 
 option(dsnutil_cpp_WITH_BASE64 "Build libdsnutil_cpp-base64" ON)
 option(dsnutil_cpp_WITH_EXAMPLES "Build demo executables" ON)
 option(dsnutil_cpp_WITH_BOOST_LOG "Enable support for boost::log based logging API" ON)
-option(dsnutil_cpp_WITH_LOG4CPP "Enable support for logging with log4cpp" OFF)
 option(dsnutil_cpp_WITH_TESTS "Enable tests for dsnutil_cpp" ON)
 
 #
@@ -70,15 +69,6 @@ write_compiler_detection_header(FILE "${CMAKE_CURRENT_BINARY_DIR}/include/dsnuti
                                     cxx_range_for
                                     cxx_strong_enums)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/compiler_features.h DESTINATION include/dsnutil)
-
-
-#
-# If log4cpp is requested we'll need to locate its headers & libs...
-if(dsnutil_cpp_WITH_LOG4CPP)
-    find_package(Log4cpp REQUIRED)
-    include_directories(${LOG4CPP_INCLUDE_DIR})
-    add_definitions(-DWITH_LOG4CPP)
-endif(dsnutil_cpp_WITH_LOG4CPP)
 
 set(Boost_COMPONENTS "")
 if(dsnutil_cpp_WITH_TESTS)
