@@ -39,7 +39,7 @@ public:
     bool moveObserver(observer& old_observer, observer& new_observer);
 };
 
-/// \brief Metaprogramming helper for \p is_observable
+/// \brief Metaprogramming helper for \p observable
 ///
 /// This has its \p value member set to \a true for sub-classes of \p observable
 ///
