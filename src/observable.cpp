@@ -1,4 +1,5 @@
 #include <dsnutil/observable.hpp>
+#include <algorithm>
 
 dsn::observable::~observable()
 {
