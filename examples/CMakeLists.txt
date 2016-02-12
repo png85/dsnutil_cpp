@@ -5,7 +5,7 @@ list(APPEND example_BINS "")
 #
 # Append boost::log tests to list if boost::log is enabled
 if(dsnutil_cpp_WITH_BOOST_LOG)
-    list(APPEND example_BINS "boost_log-base" "boost_log-stream_interceptor" "boost_log-sinkmanager")
+    list(APPEND example_BINS "boost_log-stream_interceptor" "boost_log-sinkmanager")
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
 
