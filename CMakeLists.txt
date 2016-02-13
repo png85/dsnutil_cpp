@@ -9,7 +9,6 @@ option(dsnutil_cpp_BUILD_AS_SUBMODULE "Build dsnutil_cpp as git submodule?" OFF)
 option(dsnutil_cpp_BUILD_SHARED_LIBS "Build dsnutil_cpp as shared libraries" ON)
 option(dsnutil_cpp_BUILD_DOCS "Build dsnutil_cpp docs if Doxygen is available?" ON)
 option(dsnutil_cpp_WITH_BASE64 "Build libdsnutil_cpp-base64" ON)
-option(dsnutil_cpp_WITH_EXAMPLES "Build demo executables" ON)
 option(dsnutil_cpp_WITH_BOOST_LOG "Enable support for boost::log based logging API" ON)
 option(dsnutil_cpp_WITH_TESTS "Enable tests for dsnutil_cpp" ON)
 
@@ -211,10 +210,6 @@ if(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
   include(CTest)
   enable_testing()
 endif(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
-
-if(dsnutil_cpp_WITH_EXAMPLES)
-    add_subdirectory(examples)
-endif(dsnutil_cpp_WITH_EXAMPLES)
 
 if(dsnutil_cpp_WITH_TESTS)
     add_subdirectory(tests)

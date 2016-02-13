@@ -30,7 +30,6 @@ Use CMake to configure and build as needed. Useful options might be:
 Optional features can be enabled/disabled via the following options
 * `dsnutil_cpp_WITH_BOOST_LOG` - boost::log-based logging functions
 * `dsnutil_cpp_WITH_BASE64`    - Base64 encoder/decoder functions
-* `dsnutil_cpp_WITH_EXAMPLES`  - Build examples/tests for everything?
 
 The build is setup so that the library can easily be used as a git submodule and integrated into larger CMake-based
 builds. This can be done via the following additions to your own CMakeLists.txt:

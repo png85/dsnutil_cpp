@@ -1,9 +1,22 @@
+#
+# libdsnutil_cpp unit tests
 set(test_SOURCES finally.cpp singleton.cpp observable.cpp observing_ptr.cpp pretty_print.cpp exception.cpp
     throwing_assert.cpp countof.cpp map_sort.cpp hexdump.cpp reverse.cpp parallel_for.cpp threadpool.cpp
     reference_counted.cpp intrusive_ptr.cpp make_intrusive.cpp lambda_unique_ptr.cpp)
+
+#
+# libdsnutil_cpp-base64 unit tests
 if(dsnutil_cpp_WITH_BASE64)
     list(APPEND test_SOURCES base64.cpp)
 endif(dsnutil_cpp_WITH_BASE64)
+
+#
+# libdsnutil_cpp-log unit tests
+if(dsnutil_cpp_WITH_BOOST_LOG)
+    list(APPEND test_SOURCES log_init.cpp log_base.cpp log_sinkmanager.cpp log_stream_interceptor.cpp)
+endif(dsnutil_cpp_WITH_BOOST_LOG)
+
+list(SORT test_SOURCES)
 
 foreach(test_src ${test_SOURCES})
     get_filename_component(test_name ${test_src} NAME_WE)
@@ -12,8 +25,9 @@ foreach(test_src ${test_SOURCES})
     target_link_libraries(${test_name} ${CMAKE_THREAD_LIBS_INIT})
     target_link_libraries(${test_name} ${dsnutil_cpp_LIBRARY})
     target_link_libraries(${test_name} ${Boost_LIBRARIES})
-    # TODO(png): boost::log
-    # TODO(png): dsnutil_cpp-log
+    if(dsnutil_cpp_WITH_BOOST_LOG)
+        target_link_libraries(${test_name} ${dsnutil_cpp_log_LIBRARY})
+    endif(dsnutil_cpp_WITH_BOOST_LOG)
     if(dsnutil_cpp_WITH_BASE64)
         target_link_libraries(${test_name} ${dsnutil_cpp_base64_LIBRARY})
     endif(dsnutil_cpp_WITH_BASE64)
