@@ -1,9 +1,15 @@
+#include <cstdlib>
 #include <dsnutil/exception.h>
 #include <sstream>
-#include <cstdlib>
 
 using namespace dsn;
 
+/// \brief Create new exception
+///
+/// \param description human-readable error description
+/// \param source function/method name that triggered the exception
+/// \param file name of the source file where the exception was thrown
+/// \param line line number in \a file where the exception was thrown
 Exception::Exception(const std::string& description, const std::string& source, const char* file, size_t line)
     : m_description(description)
     , m_source(source)
@@ -13,6 +19,12 @@ Exception::Exception(const std::string& description, const std::string& source, 
 {
 }
 
+/// \brief Create new exception
+///
+/// \param description human-readable error description
+/// \param source function/method name that triggered the exception
+/// \param file name of the source file where the exception was thrown
+/// \param line line number in \a file where the exception was thrown
 Exception::Exception(const std::string& description, const std::string& source, const char* file, const char* line)
     : m_description(description)
     , m_source(source)
@@ -22,9 +34,7 @@ Exception::Exception(const std::string& description, const std::string& source, 
 {
 }
 
-Exception::~Exception() dsnutil_cpp_NOEXCEPT
-{
-}
+Exception::~Exception() dsnutil_cpp_NOEXCEPT {}
 
 /// \brief Return full human-readable error message
 ///
@@ -46,33 +56,21 @@ const std::string& Exception::fullDescription() const
 /// to the source code filename.
 ///
 /// \return Exception source as human-readable string
-const std::string& Exception::getSource() const
-{
-    return m_source;
-}
+const std::string& Exception::getSource() const { return m_source; }
 
 /// \brief Get source file
 ///
 /// \return Name of the source file that triggered the exception
-const std::string& Exception::getFile() const
-{
-    return m_file;
-}
+const std::string& Exception::getFile() const { return m_file; }
 
 /// \brief Get error description
 ///
 /// \return Human-readable error description
-const std::string& Exception::getDescription() const
-{
-    return m_description;
-}
+const std::string& Exception::getDescription() const { return m_description; }
 
 /// \brief Get full error description
 ///
 /// \see getFullDescription
 ///
 /// \return Full human-readable error description
-const char* Exception::what() const dsnutil_cpp_NOEXCEPT
-{
-    return fullDescription().c_str();
-}
+const char* Exception::what() const dsnutil_cpp_NOEXCEPT { return fullDescription().c_str(); }

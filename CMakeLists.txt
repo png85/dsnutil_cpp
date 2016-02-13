@@ -3,15 +3,13 @@ cmake_minimum_required(VERSION 3.1)
 
 set(dsnutil_cpp_VERSION_MAJOR 0)
 set(dsnutil_cpp_VERSION_MINOR 99)
-set(dsnutil_cpp_VERSION_PATCH 19)
+set(dsnutil_cpp_VERSION_PATCH 20)
 
 option(dsnutil_cpp_BUILD_AS_SUBMODULE "Build dsnutil_cpp as git submodule?" OFF)
 option(dsnutil_cpp_BUILD_SHARED_LIBS "Build dsnutil_cpp as shared libraries" ON)
 option(dsnutil_cpp_BUILD_DOCS "Build dsnutil_cpp docs if Doxygen is available?" ON)
 option(dsnutil_cpp_WITH_BASE64 "Build libdsnutil_cpp-base64" ON)
-option(dsnutil_cpp_WITH_EXAMPLES "Build demo executables" ON)
 option(dsnutil_cpp_WITH_BOOST_LOG "Enable support for boost::log based logging API" ON)
-option(dsnutil_cpp_WITH_LOG4CPP "Enable support for logging with log4cpp" OFF)
 option(dsnutil_cpp_WITH_TESTS "Enable tests for dsnutil_cpp" ON)
 
 #
@@ -70,15 +68,6 @@ write_compiler_detection_header(FILE "${CMAKE_CURRENT_BINARY_DIR}/include/dsnuti
                                     cxx_range_for
                                     cxx_strong_enums)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/compiler_features.h DESTINATION include/dsnutil)
-
-
-#
-# If log4cpp is requested we'll need to locate its headers & libs...
-if(dsnutil_cpp_WITH_LOG4CPP)
-    find_package(Log4cpp REQUIRED)
-    include_directories(${LOG4CPP_INCLUDE_DIR})
-    add_definitions(-DWITH_LOG4CPP)
-endif(dsnutil_cpp_WITH_LOG4CPP)
 
 set(Boost_COMPONENTS "")
 if(dsnutil_cpp_WITH_TESTS)
@@ -221,10 +210,6 @@ if(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
   include(CTest)
   enable_testing()
 endif(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
-
-if(dsnutil_cpp_WITH_EXAMPLES)
-    add_subdirectory(examples)
-endif(dsnutil_cpp_WITH_EXAMPLES)
 
 if(dsnutil_cpp_WITH_TESTS)
     add_subdirectory(tests)

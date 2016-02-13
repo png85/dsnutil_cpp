@@ -10,6 +10,9 @@ namespace dsn {
 /// \note The requirement to use this usually indicates design flaws so think twice
 /// before doing so! --png
 struct null_deleter {
+    /// \brief Dummy deleter
+    ///
+    /// This does absolutely nothing.
     void operator()(const void*) const {}
 };
 }

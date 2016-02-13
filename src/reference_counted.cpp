@@ -10,8 +10,10 @@ void dsn::reference_counted::ref() const { m_reference_count++; }
 
 /// \brief Decrease reference count
 ///
-/// This decreases the reference count of the object. If the reference count its zero and \a no_delete
+/// This decreases the reference count of the object. If the reference count hits zero and \a no_delete
 /// is \a false the object will commit suicide (= delete itself)
+///
+/// \param no_delete If this is \a true the object will not be delete even if the reference count reaches zero
 void dsn::reference_counted::unref(bool no_delete) const
 {
     assert(m_reference_count.load() >= 1);

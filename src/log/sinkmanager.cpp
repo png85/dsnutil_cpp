@@ -24,12 +24,27 @@ SinkManager::~SinkManager()
     m_sinks.clear();
 }
 
+/// \brief Check whether a log sink exists
+///
+/// \param name Name of the log sink that shall be checked
+///
+/// \return true if a log sink with the given \a name exists or false if it wasn't found
 bool SinkManager::exists(const std::string& name) const
 {
     auto it = m_sinks.find(name);
     return it != m_sinks.end();
 }
 
+/// \brief Add log sink
+///
+/// This registers a new log sink with the manager.
+///
+/// \note If a sink with the given \a name already exists it will be overwritten.
+///
+/// \param name Name of the newly registered sink
+/// \param sink Pointer to the log sink that shall be added to the manager
+///
+/// \return true if the sink was added or false on errors
 bool SinkManager::add(const std::string& name, const SinkManager::sink_ptr& sink)
 {
     if (exists(name)) {
@@ -45,6 +60,13 @@ bool SinkManager::add(const std::string& name, const SinkManager::sink_ptr& sink
     return true;
 }
 
+/// \brief Remove log sink
+///
+/// Removes a log sink from the manager.
+///
+/// \param name Name of the log sink that shall be removed
+///
+/// \return true if the sink was removed or false if no sink with the given \a name was found
 bool SinkManager::remove(const std::string& name)
 {
     if (!exists(name)) {
@@ -58,8 +80,16 @@ bool SinkManager::remove(const std::string& name)
     return true;
 }
 
+/// \brief Get registered sink names
+///
+/// \return vector with the names of all registered sinks
 std::vector<std::string> SinkManager::sinks() const { return dsn::map_keys(m_sinks); }
 
+/// \brief Get pointer to registered sink
+///
+/// \param name Name of the log sink that shall be returned
+///
+/// \return sink_ptr to the registered sink or nullptr if no sink with the given \a name was found
 SinkManager::sink_ptr SinkManager::sink(const std::string& name)
 {
     if (!exists(name)) {

@@ -11,6 +11,13 @@
 namespace dsn {
 namespace log {
 
+    /// \brief ostream interceptor for logging
+    ///
+    /// This can be used to intercept an \p std::ostream and write all data that goes through it into
+    /// into a logger. All data is passed on to the intercepted stream after writing it to the logger.
+    ///
+    /// \note It's probably not too wise to use this with streams that process binary data because of garbage
+    /// ending up in logfiles.
     template <typename levelT = boost::log::trivial::severity_level> class stream_interceptor : public std::streambuf {
     public:
         /** \brief Intercept stream to existing logger

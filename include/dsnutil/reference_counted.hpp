@@ -32,6 +32,9 @@ public:
 /// This defines its \a value member to \a true for all sub-classes of \p reference_counted or
 /// false for anything else.
 template <typename T> struct is_reference_counted {
+    /// \brief Indicate whether \a T is reference_counted
+    ///
+    /// This is set to \a true if \p T is derived from \a reference_counted or false for any other types.
     static const bool value = std::is_base_of<reference_counted, T>::value;
 };
 }
