@@ -12,7 +12,6 @@ foreach(test_src ${test_SOURCES})
     target_link_libraries(${test_name} ${CMAKE_THREAD_LIBS_INIT})
     target_link_libraries(${test_name} ${dsnutil_cpp_LIBRARY})
     target_link_libraries(${test_name} ${Boost_LIBRARIES})
-    # TODO(png): log4cpp
     # TODO(png): boost::log
     # TODO(png): dsnutil_cpp-log
     if(dsnutil_cpp_WITH_BASE64)

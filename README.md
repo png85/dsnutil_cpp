@@ -10,8 +10,8 @@ this library contains various little utility/helper functions and classes that h
  * GCC >= 4.8
  * MSVC >=12.0 (Visual Studio 2013 and newer)
  * Clang from XCode on OS X
-   * Mavericks build performed by Travis-CI
-   * Manual tests during development on El Capitan
+  * Mavericks build performed by Travis-CI
+  * Manual tests during development on El Capitan
  * Clang >= 3.7 on Linux
 
 
@@ -28,7 +28,6 @@ Use CMake to configure and build as needed. Useful options might be:
 * `dsnutil_cpp_WITH_TESTS`         - Enable/disable build of unit tests (requires Boost)
 
 Optional features can be enabled/disabled via the following options
-* `dsnutil_cpp_WITH_LOG4CPP`   - log4cpp-based logging functions (deprecated)
 * `dsnutil_cpp_WITH_BOOST_LOG` - boost::log-based logging functions
 * `dsnutil_cpp_WITH_BASE64`    - Base64 encoder/decoder functions
 * `dsnutil_cpp_WITH_EXAMPLES`  - Build examples/tests for everything?
