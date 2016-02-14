@@ -83,7 +83,7 @@ if(dsnutil_cpp_WITH_BOOST_LOG)
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
 message(STATUS "Boost_COMPONENTS: ${Boost_COMPONENTS}")
-find_package(Boost 1.54 REQUIRED COMPONENTS ${Boost_COMPONENTS})
+find_package(Boost REQUIRED COMPONENTS ${Boost_COMPONENTS})
 include_directories(${Boost_INCLUDE_DIRS})
 if(NOT Boost_USE_STATIC_LIBS)
   add_definitions(-DBOOST_ALL_DYN_LINK)
