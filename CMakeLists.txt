@@ -102,37 +102,12 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
 configure_file(version.h.in ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/dsnutil_cpp_version.h)
 
 #
-# libdsnutil_cpp: Main library
-file(GLOB_RECURSE dsnutil_cpp_HDRS include/dsnutil/*.h include/dsnutil/*.hpp)
-file(GLOB dsnutil_cpp_SRCS src/*.cpp)
-if(WIN32)
-    file(GLOB dsnutil_cpp_RC_SRCS src/*.rc)
-    list(APPEND dsnutil_cpp_SRCS ${dsnutil_cpp_RC_SRCS})
-endif(WIN32)
-set(dsnutil_cpp_LIBRARY dsnutil_cpp)
-if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(dsnutil_cpp_LIBRARY dsnutil_cppd)
-endif(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-add_library(${dsnutil_cpp_LIBRARY} ${LIB_TYPE} ${dsnutil_cpp_SRCS} ${dsnutil_cpp_HDRS})
-set_target_properties(${dsnutil_cpp_LIBRARY} PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED ON)
-if(WIN32)
-    set_target_properties(${dsnutil_cpp_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_LIBRARY}_EXPORTS")
-endif(WIN32)
-if(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
-    set_target_properties(${dsnutil_cpp_LIBRARY} PROPERTIES SONAME "dsnutil_cpp"
-                                                            SOVERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH}
-                                                            VERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH})
-endif(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
-generate_export_header(${dsnutil_cpp_LIBRARY}
-                       BASE_NAME dsnutil_cpp
-                       EXPORT_MACRO_NAME dsnutil_cpp_EXPORT
-                       EXPORT_FILE_NAME include/dsnutil/dsnutil_cpp_Export.h
-                       STATIC_DEFINE dsnutil_cpp_BUILT_AS_STATIC)
-install(TARGETS ${dsnutil_cpp_LIBRARY} ARCHIVE DESTINATION lib
-                                       LIBRARY DESTINATION lib
-                                       RUNTIME DESTINATION bin)
-install(DIRECTORY include/dsnutil DESTINATION include)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/dsnutil_cpp_Export.h DESTINATION include/dsnutil)
+# shared library versions (only used on UNIX)
+set(dsnutil_cpp_LIB_SOVERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH})
+set(dsnutil_cpp_LIB_VERSION ${dsnutil_cpp_LIB_SOVERSION})
+
+set(dsnutil_cpp_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
+add_subdirectory(src)
 
 #
 # libdsnutil_cpp-chrono: Optional utility classes for std::chrono
@@ -230,7 +205,6 @@ if(dsnutil_cpp_WITH_BASE64)
                                                   RUNTIME DESTINATION bin)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/base64/dsnutil_cpp_base64_Export.h DESTINATION include/dsnutil/base64)
 endif(dsnutil_cpp_WITH_BASE64)
-
 
 #
 # Enable testing and CDash submission
