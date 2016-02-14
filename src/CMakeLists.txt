@@ -55,3 +55,8 @@ install(TARGETS ${dsnutil_cpp_LIBRARY} RUNTIME DESTINATION bin ARCHIVE DESTINATI
 install(FILES ${dsnutil_cpp_BINARY_DIR}/include/dsnutil/dsnutil_cpp_Export.h DESTINATION include/dsnutil)
 
 set(dsnutil_cpp_LIBRARY ${dsnutil_cpp_LIBRARY} PARENT_SCOPE)
+
+if(dsnutil_cpp_WITH_BASE64)
+    add_subdirectory(base64)
+    set(dsnutil_cpp_base64_LIBRARY ${dsnutil_cpp_base64_LIBRARY} PARENT_SCOPE)
+endif(dsnutil_cpp_WITH_BASE64)

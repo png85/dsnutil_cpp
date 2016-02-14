@@ -173,39 +173,6 @@ if(dsnutil_cpp_WITH_BOOST_LOG)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/log/dsnutil_cpp_log_Export.h DESTINATION include/dsnutil/log)
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
-
-#
-# libdsnutil_cpp-base64: Optional Base64 encoder/decoder functions
-if(dsnutil_cpp_WITH_BASE64)
-    set(dsnutil_cpp_base64_LIBRARY dsnutil_cpp-base64)
-    if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-        set(dsnutil_cpp_base64_LIBRARY dsnutil_cpp-base64d)
-    endif(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-    file(GLOB dsnutil_cpp_base64_SRCS src/base64/*.cpp)
-    if(WIN32)
-        file(GLOB dsnutil_cpp_base64_RC_SRCS src/base64/*.rc)
-        list(APPEND dsnutil_cpp_base64_SRCS ${dsnutil_cpp_base64_RC_SRCS})
-    endif(WIN32)
-    add_library(${dsnutil_cpp_base64_LIBRARY} ${LIB_TYPE} ${dsnutil_cpp_base64_SRCS} ${dsnutil_cpp_HDRS})
-    if(WIN32)
-        set_target_properties(${dsnutil_cpp_base64_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_base64_LIBRARY}_EXPORTS")
-    endif(WIN32)
-    if(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
-        set_target_properties(${dsnutil_cpp_base64_LIBRARY} PROPERTIES SONAME "dsnutil_cpp-base64"
-                                                                       SOVERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH}
-                                                                       VERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH})
-    endif(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
-    generate_export_header(${dsnutil_cpp_base64_LIBRARY}
-                           BASE_NAME dsnutil_cpp_base64
-                           EXPORT_MACRO_NAME dsnutil_cpp_base64_EXPORT
-                           EXPORT_FILE_NAME ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/base64/dsnutil_cpp_base64_Export.h
-                           STATIC_DEFINE dsnutil_cpp_base64_BUILT_AS_STATIC)
-    install(TARGETS ${dsnutil_cpp_base64_LIBRARY} ARCHIVE DESTINATION lib
-                                                  LIBRARY DESTINATION lib
-                                                  RUNTIME DESTINATION bin)
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/base64/dsnutil_cpp_base64_Export.h DESTINATION include/dsnutil/base64)
-endif(dsnutil_cpp_WITH_BASE64)
-
 #
 # Enable testing and CDash submission
 if(NOT dsnutil_cpp_BUILD_AS_SUBMODULE)
