@@ -17,6 +17,12 @@ if(dsnutil_cpp_WITH_BOOST_LOG)
     list(APPEND test_SOURCES log_init.cpp log_base.cpp log_sinkmanager.cpp log_stream_interceptor.cpp)
 endif(dsnutil_cpp_WITH_BOOST_LOG)
 
+#
+# libdsnutil_cpp-chrono unit tests
+if(dsnutil_cpp_WITH_CHRONO)
+    list(APPEND test_SOURCES chrono_time_point.cpp chrono_duration.cpp chrono_timer.cpp)
+endif(dsnutil_cpp_WITH_CHRONO)
+
 list(SORT test_SOURCES)
 
 option(dsnutil_cpp_WITH_COVERAGE "Enable code coverage" OFF)
@@ -37,6 +43,9 @@ foreach(test_src ${test_SOURCES})
     if(dsnutil_cpp_WITH_BASE64)
         target_link_libraries(${test_name} ${dsnutil_cpp_base64_LIBRARY})
     endif(dsnutil_cpp_WITH_BASE64)
+    if(dsnutil_cpp_WITH_CHRONO)
+        target_link_libraries(${test_name} ${dsnutil_cpp_chrono_LIBRARY})
+    endif(dsnutil_cpp_WITH_CHRONO)
     add_test(NAME ${test_name} COMMAND ${test_name} WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
     install(TARGETS ${test_name} RUNTIME DESTINATION tests/${CMAKE_BUILD_TYPE})
     if(dsnutil_cpp_WITH_COVERAGE)

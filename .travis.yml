@@ -1,10 +1,30 @@
 language: cpp
+sudo: true
+dist: trusty
+
+os:
+  - linux
+  - osx
+
 compiler:
   - gcc
+  - clang
+
+addons:
+  apt:
+    packages:
+      - libboost-all-dev
+      - cmake
 
 before_script:
-  - sudo apt-get update -qq
-  - sudo apt-get install libboost-dev
+  - if [[ $TRAVIS_OS_NAME == "linux" ]]; then yes | sudo add-apt-repository ppa:axel-huebl/cmake3.1; fi
+  - if [[ $TRAVIS_OS_NAME == "linux" ]]; then yes | sudo add-apt-repository ppa:ubuntu-toolchain-r/test; fi
+  - if [[ $TRAVIS_OS_NAME == "linux" ]]; then sudo apt-get update -qq; fi
+  - if [[ $TRAVIS_OS_NAME == "linux" ]]; then sudo apt-get install -qq -y cmake libboost-dev g++-5; fi
+
+  - if [[ $TRAVIS_OS_NAME == "osx" ]]; then brew update && brew upgrade; fi
+
+install: if [[ $TRAVIS_OS_NAME == "linux" ]] ; then sudo apt-get update -qq; fi
 
 script:
   - mkdir build
@@ -15,4 +35,5 @@ script:
 
 after_script:
   - ctest
-  - cmake --build . --target Continous
+  - cmake --build . --target Experimental --
+
