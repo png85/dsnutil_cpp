@@ -106,36 +106,13 @@ configure_file(version.h.in ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/dsnutil_
 set(dsnutil_cpp_LIB_SOVERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH})
 set(dsnutil_cpp_LIB_VERSION ${dsnutil_cpp_LIB_SOVERSION})
 
+#
+# Toplevel binary dir (used to store auto-generated headers)
 set(dsnutil_cpp_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
-add_subdirectory(src)
 
 #
-# libdsnutil_cpp-chrono: Optional utility classes for std::chrono
-if(dsnutil_cpp_WITH_CHRONO)
-    set(dsnutil_cpp_chrono_LIBRARY dsnutil_cpp-chrono)
-    if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-        set(dsnutil_cpp_chrono_LIBRARY dsnutil_cpp-chronod)
-    endif(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-    file(GLOB dsnutil_cpp_chrono_SRCS src/chrono/*.cpp)
-    file(GLOB dsnutil_cpp_chrono_HDRS include/dsnutil/chrono/*.hpp)
-    add_library(${dsnutil_cpp_chrono_LIBRARY} ${LIB_TYPE} ${dsnutil_cpp_chrono_SRCS} ${dsnutil_cpp_chrono_HDRS})
-    set_target_properties(${dsnutil_cpp_chrono_LIBRARY} PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED ON)
-    if(WIN32)
-        set_target_properties(${dsnutil_cpp_chrono_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_LIBRARY}_EXPORTS;${dsnutil_cpp_chrono_LIBRARY}_EXPORTS")
-    endif(WIN32)
-    if(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
-        set_target_properties(${dsnutil_cpp_chrono_LIBRARY} PROPERTIES SONAME "dsnutil_cpp-chrono"
-                                                                       SOVERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH}
-                                                                       VERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH})
-    endif(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
-    generate_export_header(${dsnutil_cpp_chrono_LIBRARY}
-            BASE_NAME dsnutil_cpp_chrono
-            EXPORT_MACRO_NAME dsnutil_cpp_chrono_EXPORT
-            EXPORT_FILE_NAME ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/chrono/dsnutil_cpp_chrono_Export.h
-            STATIC_DEFINE dsnutil_cpp_chrono_BUILT_AS_STATIC)
-        install(TARGETS ${dsnutil_cpp_chrono_LIBRARY} RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/chrono/dsnutil_cpp_chrono_Export.h DESTINATION include/dsnutil/chrono)
-endif(dsnutil_cpp_WITH_CHRONO)
+# Build all the things...
+add_subdirectory(src)
 
 #
 # libdsnutil_cpp-log: Optional boost::log based logging API

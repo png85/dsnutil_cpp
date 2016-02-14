@@ -60,3 +60,8 @@ if(dsnutil_cpp_WITH_BASE64)
     add_subdirectory(base64)
     set(dsnutil_cpp_base64_LIBRARY ${dsnutil_cpp_base64_LIBRARY} PARENT_SCOPE)
 endif(dsnutil_cpp_WITH_BASE64)
+
+if(dsnutil_cpp_WITH_CHRONO)
+    add_subdirectory(chrono)
+    set(dsnutil_cpp_chrono_LIBRARY ${dsnutil_cpp_chrono_LIBRARY} PARENT_SCOPE)
+endif(dsnutil_cpp_WITH_CHRONO)
