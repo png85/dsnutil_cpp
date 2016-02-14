@@ -17,7 +17,7 @@ option(dsnutil_cpp_WITH_TESTS "Enable tests for dsnutil_cpp" ON)
 # Optional libraries
 option(dsnutil_cpp_WITH_BASE64 "Build libdsnutil_cpp-base64" ON) # base64 encoder/decoder functions
 option(dsnutil_cpp_WITH_CHRONO "Build libdsnutil_cpp-chrono" ON) # shortcuts for std::chrono::high_resolution_clock
-option(dsnutil_cpp_WITH_BOOST_LOG "Build libdsnutil_cpp-log" ON) # Boost.Log-based logging helpers
+option(dsnutil_cpp_WITH_LOG "Build libdsnutil_cpp-log" ON)       # Boost.Log-based logging helpers
 
 
 #
@@ -85,10 +85,10 @@ endif(dsnutil_cpp_WITH_TESTS)
 
 #
 # If boost::log is requested we'll need to locate additional Boost headers & libs...
-if(dsnutil_cpp_WITH_BOOST_LOG)
+if(dsnutil_cpp_WITH_LOG)
     list(APPEND Boost_COMPONENTS system thread log log_setup date_time chrono filesystem)
     add_definitions(-DWITH_BOOST_LOG)
-endif(dsnutil_cpp_WITH_BOOST_LOG)
+endif(dsnutil_cpp_WITH_LOG)
 
 message(STATUS "Boost_COMPONENTS: ${Boost_COMPONENTS}")
 find_package(Boost REQUIRED COMPONENTS ${Boost_COMPONENTS})
@@ -123,7 +123,7 @@ add_subdirectory(src)
 
 #
 # libdsnutil_cpp-log: Optional boost::log based logging API
-if(dsnutil_cpp_WITH_BOOST_LOG)
+if(dsnutil_cpp_WITH_LOG)
     set(dsnutil_cpp_log_LIBRARY dsnutil_cpp-log)
     if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
         set(dsnutil_cpp_log_LIBRARY dsnutil_cpp-logd)
@@ -155,7 +155,7 @@ if(dsnutil_cpp_WITH_BOOST_LOG)
                                                LIBRARY DESTINATION lib
                                                RUNTIME DESTINATION bin)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/log/dsnutil_cpp_log_Export.h DESTINATION include/dsnutil/log)
-endif(dsnutil_cpp_WITH_BOOST_LOG)
+endif(dsnutil_cpp_WITH_LOG)
 
 #
 # Enable testing and CDash submission

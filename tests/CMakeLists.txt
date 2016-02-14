@@ -13,9 +13,9 @@ endif(dsnutil_cpp_WITH_BASE64)
 
 #
 # libdsnutil_cpp-log unit tests
-if(dsnutil_cpp_WITH_BOOST_LOG)
+if(dsnutil_cpp_WITH_LOG)
     list(APPEND test_SOURCES log_init.cpp log_base.cpp log_sinkmanager.cpp log_stream_interceptor.cpp)
-endif(dsnutil_cpp_WITH_BOOST_LOG)
+endif(dsnutil_cpp_WITH_LOG)
 
 #
 # libdsnutil_cpp-chrono unit tests
@@ -37,9 +37,9 @@ foreach(test_src ${test_SOURCES})
     target_link_libraries(${test_name} ${CMAKE_THREAD_LIBS_INIT})
     target_link_libraries(${test_name} ${dsnutil_cpp_LIBRARY})
     target_link_libraries(${test_name} ${Boost_LIBRARIES})
-    if(dsnutil_cpp_WITH_BOOST_LOG)
+    if(dsnutil_cpp_WITH_LOG)
         target_link_libraries(${test_name} ${dsnutil_cpp_log_LIBRARY})
-    endif(dsnutil_cpp_WITH_BOOST_LOG)
+    endif(dsnutil_cpp_WITH_LOG)
     if(dsnutil_cpp_WITH_BASE64)
         target_link_libraries(${test_name} ${dsnutil_cpp_base64_LIBRARY})
     endif(dsnutil_cpp_WITH_BASE64)
