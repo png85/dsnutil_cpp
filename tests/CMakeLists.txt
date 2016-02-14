@@ -20,7 +20,7 @@ endif(dsnutil_cpp_WITH_BOOST_LOG)
 #
 # libdsnutil_cpp-chrono unit tests
 if(dsnutil_cpp_WITH_CHRONO)
-    list(APPEND test_SOURCES chrono_time_point.cpp)
+    list(APPEND test_SOURCES chrono_time_point.cpp chrono_duration.cpp)
 endif(dsnutil_cpp_WITH_CHRONO)
 
 list(SORT test_SOURCES)
