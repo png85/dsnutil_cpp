@@ -65,3 +65,8 @@ if(dsnutil_cpp_WITH_CHRONO)
     add_subdirectory(chrono)
     set(dsnutil_cpp_chrono_LIBRARY ${dsnutil_cpp_chrono_LIBRARY} PARENT_SCOPE)
 endif(dsnutil_cpp_WITH_CHRONO)
+
+if(dsnutil_cpp_WITH_LOG)
+    add_subdirectory(log)
+    set(dsnutil_cpp_log_LIBRARY ${dsnutil_cpp_log_LIBRARY} PARENT_SCOPE)
+endif(dsnutil_cpp_WITH_LOG)

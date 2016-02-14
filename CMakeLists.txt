@@ -123,39 +123,39 @@ add_subdirectory(src)
 
 #
 # libdsnutil_cpp-log: Optional boost::log based logging API
-if(dsnutil_cpp_WITH_LOG)
-    set(dsnutil_cpp_log_LIBRARY dsnutil_cpp-log)
-    if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-        set(dsnutil_cpp_log_LIBRARY dsnutil_cpp-logd)
-    endif(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-    file(GLOB dsnutil_cpp_log_SRCS src/log/*.cpp)
-    if(WIN32)
-        file(GLOB dsnutil_cpp_log_RC_SRCS src/log/*.rc)
-        list(APPEND dsnutil_cpp_log_SRCS ${dsnutil_cpp_log_RC_SRCS})
-    endif(WIN32)
-    add_library(${dsnutil_cpp_log_LIBRARY} ${LIB_TYPE} ${dsnutil_cpp_log_SRCS} ${dsnutil_cpp_HDRS})
-    set_target_properties(${dsnutil_cpp_log_LIBRARY} PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED ON)
-    if(WIN32)
-        set_target_properties(${dsnutil_cpp_log_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_LIBRARY}_EXPORTS;${dsnutil_cpp_log_LIBRARY}_EXPORTS")
-    endif(WIN32)
-    if(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
-        set_target_properties(${dsnutil_cpp_log_LIBRARY} PROPERTIES SONAME "dsnutil_cpp-log"
-                                                                    SOVERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH}
-                                                                    VERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH})
-								endif(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
-    if(NOT Boost_USE_STATIC_LIBS)
-      target_link_libraries(${dsnutil_cpp_log_LIBRARY} ${Boost_LIBRARIES})
-    endif(NOT Boost_USE_STATIC_LIBS)
-    generate_export_header(${dsnutil_cpp_log_LIBRARY}
-                           BASE_NAME dsnutil_cpp_log
-                           EXPORT_MACRO_NAME dsnutil_cpp_log_EXPORT
-                           EXPORT_FILE_NAME include/dsnutil/log/dsnutil_cpp_log_Export.h
-                           STATIC_DEFINE dsnutil_cpp_log_BUILT_AS_STATIC)
-    install(TARGETS ${dsnutil_cpp_log_LIBRARY} ARCHIVE DESTINATION lib
-                                               LIBRARY DESTINATION lib
-                                               RUNTIME DESTINATION bin)
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/log/dsnutil_cpp_log_Export.h DESTINATION include/dsnutil/log)
-endif(dsnutil_cpp_WITH_LOG)
+#if(dsnutil_cpp_WITH_LOG)
+#    set(dsnutil_cpp_log_LIBRARY dsnutil_cpp-log)
+#    if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+#        set(dsnutil_cpp_log_LIBRARY dsnutil_cpp-logd)
+#    endif(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+#    file(GLOB dsnutil_cpp_log_SRCS src/log/*.cpp)
+#    if(WIN32)
+#        file(GLOB dsnutil_cpp_log_RC_SRCS src/log/*.rc)
+#        list(APPEND dsnutil_cpp_log_SRCS ${dsnutil_cpp_log_RC_SRCS})
+#    endif(WIN32)
+#    add_library(${dsnutil_cpp_log_LIBRARY} ${LIB_TYPE} ${dsnutil_cpp_log_SRCS} ${dsnutil_cpp_HDRS})
+#    set_target_properties(${dsnutil_cpp_log_LIBRARY} PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED ON)
+#    if(WIN32)
+#        set_target_properties(${dsnutil_cpp_log_LIBRARY} PROPERTIES COMPILE_DEFINITIONS "${dsnutil_cpp_LIBRARY}_EXPORTS;${dsnutil_cpp_log_LIBRARY}_EXPORTS")
+#    endif(WIN32)
+#    if(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
+#        set_target_properties(${dsnutil_cpp_log_LIBRARY} PROPERTIES SONAME "dsnutil_cpp-log"
+#                                                                    SOVERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH}
+#                                                                    VERSION ${dsnutil_cpp_VERSION_MAJOR}.${dsnutil_cpp_VERSION_MINOR}.${dsnutil_cpp_VERSION_PATCH})
+#								endif(UNIX AND dsnutil_cpp_BUILD_SHARED_LIBS)
+#    if(NOT Boost_USE_STATIC_LIBS)
+#      target_link_libraries(${dsnutil_cpp_log_LIBRARY} ${Boost_LIBRARIES})
+#    endif(NOT Boost_USE_STATIC_LIBS)
+#    generate_export_header(${dsnutil_cpp_log_LIBRARY}
+#                           BASE_NAME dsnutil_cpp_log
+#                           EXPORT_MACRO_NAME dsnutil_cpp_log_EXPORT
+#                           EXPORT_FILE_NAME include/dsnutil/log/dsnutil_cpp_log_Export.h
+#                           STATIC_DEFINE dsnutil_cpp_log_BUILT_AS_STATIC)
+#    install(TARGETS ${dsnutil_cpp_log_LIBRARY} ARCHIVE DESTINATION lib
+#                                               LIBRARY DESTINATION lib
+#                                               RUNTIME DESTINATION bin)
+#    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/dsnutil/log/dsnutil_cpp_log_Export.h DESTINATION include/dsnutil/log)
+#endif(dsnutil_cpp_WITH_LOG)
 
 #
 # Enable testing and CDash submission
