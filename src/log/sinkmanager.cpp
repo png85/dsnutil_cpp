@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <dsnutil/compiler_features.h>
 #include <dsnutil/dsnutil_cpp_Export.h>
 #include <dsnutil/log/sinkmanager.h>
 #include <dsnutil/map_sort.h>
@@ -10,18 +9,10 @@ SinkManager::SinkManager() {}
 
 SinkManager::~SinkManager()
 {
-#if (dsnutil_cpp_COMPILER_CXX_RANGE_FOR && dsnutil_cpp_COMPILER_CXX_AUTO_TYPE)
-    for (auto& sink : m_sinks) {
-        BOOST_LOG_SEV(log, severity::trace) << "Removing leftover log sink: " << sink.first;
-        boost::log::core::get()->remove_sink(sink.second);
+    for (auto& sink_pair : m_sinks) {
+        auto& ptr = sink_pair.second;
+        boost::log::core::get()->remove_sink(ptr);
     }
-#else
-    for (sink_storage::iterator it = m_sinks.begin(); it != m_sinks.end(); ++it) {
-        BOOST_LOG_SEV(log, severity::trace) << "Removing leftover log sink: " << it->first;
-        boost::log::core::get()->remove_sink(it->second);
-    }
-#endif
-    m_sinks.clear();
 }
 
 /// \brief Check whether a log sink exists
