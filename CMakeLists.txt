@@ -5,13 +5,20 @@ set(dsnutil_cpp_VERSION_MAJOR 0)
 set(dsnutil_cpp_VERSION_MINOR 99)
 set(dsnutil_cpp_VERSION_PATCH 21)
 
+#
+# General build options
 option(dsnutil_cpp_BUILD_AS_SUBMODULE "Build dsnutil_cpp as git submodule?" OFF)
 option(dsnutil_cpp_BUILD_SHARED_LIBS "Build dsnutil_cpp as shared libraries" ON)
 option(dsnutil_cpp_BUILD_DOCS "Build dsnutil_cpp docs if Doxygen is available?" ON)
-option(dsnutil_cpp_WITH_BASE64 "Build libdsnutil_cpp-base64" ON)
-option(dsnutil_cpp_WITH_BOOST_LOG "Enable support for boost::log based logging API" ON)
-option(dsnutil_cpp_WITH_CHRONO "Enable utility classes for std::chrono" ON)
 option(dsnutil_cpp_WITH_TESTS "Enable tests for dsnutil_cpp" ON)
+
+
+#
+# Optional libraries
+option(dsnutil_cpp_WITH_BASE64 "Build libdsnutil_cpp-base64" ON) # base64 encoder/decoder functions
+option(dsnutil_cpp_WITH_CHRONO "Build libdsnutil_cpp-chrono" ON) # shortcuts for std::chrono::high_resolution_clock
+option(dsnutil_cpp_WITH_BOOST_LOG "Build libdsnutil_cpp-log" ON) # Boost.Log-based logging helpers
+
 
 #
 # Append cmake-modules/ to module path for custom macros
