@@ -1,16 +1,14 @@
 #pragma once
 
 #include <dsnutil/chrono/clock_type.hpp>
-
-#include <boost/date_time/posix_time/posix_time_duration.hpp>
-#include <boost/date_time/posix_time/posix_time_duration.hpp>
+#include <dsnutil/chrono/dsnutil_cpp_chrono_Export.h>
 
 namespace dsn {
 namespace chrono {
 
-    class time_point;
+    class dsnutil_cpp_chrono_EXPORT time_point;
 
-    class duration : public clock_type::duration {
+    class dsnutil_cpp_chrono_EXPORT duration : public clock_type::duration {
     public:
         duration() = default;
         duration(const duration& other);
