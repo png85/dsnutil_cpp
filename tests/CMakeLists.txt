@@ -12,6 +12,13 @@ endif(dsnutil_cpp_WITH_BASE64)
 
 
 #
+# libdsnutil_cpp-event unit tests
+if(dsnutil_cpp_WITH_EVENT)
+    list(APPEND test_SOURCES event_channel_queue.cpp event_broadcast_handler.cpp event_broadcast_channel.cpp)
+endif(dsnutil_cpp_WITH_EVENT)
+
+
+#
 # libdsnutil_cpp-log unit tests
 if(dsnutil_cpp_WITH_LOG)
     list(APPEND test_SOURCES log_init.cpp log_base.cpp log_sinkmanager.cpp log_stream_interceptor.cpp)
