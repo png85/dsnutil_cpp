@@ -1,12 +1,13 @@
 #pragma once
 
+#include <dsnutil/chrono/dsnutil_cpp_chrono_Export.h>
 #include <dsnutil/chrono/duration.hpp>
 #include <dsnutil/chrono/time_point.hpp>
 
 namespace dsn {
 namespace chrono {
 
-    class timer {
+    class dsnutil_cpp_chrono_EXPORT timer {
     protected:
         time_point m_point;
 

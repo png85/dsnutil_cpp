@@ -14,11 +14,6 @@ this library contains various little utility/helper functions and classes that h
   * Manual tests during development on El Capitan
  * Clang >= 3.7 on Linux
 
-
-## Optional dependencies
-* log4cpp logging library
-
-
 ## Building [![Build Status](https://travis-ci.org/png85/dsnutil_cpp.png?branch=master)](https://travis-ci.org/png85/dsnutil_cpp)
 Use CMake to configure and build as needed. Useful options might be:
 
@@ -28,14 +23,14 @@ Use CMake to configure and build as needed. Useful options might be:
 * `dsnutil_cpp_WITH_TESTS`         - Enable/disable build of unit tests (requires Boost)
 
 Optional features can be enabled/disabled via the following options
-* `dsnutil_cpp_WITH_BOOST_LOG` - boost::log-based logging functions
-* `dsnutil_cpp_WITH_BASE64`    - Base64 encoder/decoder functions
+* `dsnutil_cpp_WITH_BASE64` - Base64 encoder/decoder functions
+* `dsnutil_cpp_WITH_CHRONO` - Auxiliary classes for std::chrono::high_resolution_clock
+* `dsnutil_cpp_WITH_LOG`    - boost::log-based logging functions
 
 The build is setup so that the library can easily be used as a git submodule and integrated into larger CMake-based
 builds. This can be done via the following additions to your own CMakeLists.txt:
 
 ```CMake
-set(dsnutil_cpp_WITH_EXAMPLES OFF CACHE BOOL "Build dsnutil_cpp with examples?")
 set(dsnutil_cpp_BUILD_DOCS OFF CACHE BOOL "Build dsnutil_cpp API docs?")
 #
 # ... possible other options here ...
@@ -51,9 +46,9 @@ The last line is required so that your code can find the DLL import/export heade
 The build can be configured to generate static or shared libraries with shared ones being the default setting.
 After building you'll end up with the following libraries:
 * `libdsnutil_cpp`        - main library with random lower level utility classes
-* `libdsnutil_cpp-log`    - (optional) logging API based on boost::log
 * `libdsnutil_cpp-base64` - (optional) base64 encode/decode functions
-
+* `libdsnutil_cpp-chrono` - (optionsl) auxiliary classes for std::chrono::high_resolution_clock
+* `libdsnutil_cpp-log`    - (optional) logging API based on boost::log
 
 ### Binary packages
 Due to the large variety of possible target platforms and compilers there are currently no official binary packages available.

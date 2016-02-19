@@ -1,6 +1,7 @@
 #pragma once
 
 #include <dsnutil/chrono/clock_type.hpp>
+#include <dsnutil/chrono/dsnutil_cpp_chrono_Export.h>
 
 #if (__cplusplus >= 201402L)
 using namespace std::literals::chrono_literals;
@@ -9,9 +10,9 @@ using namespace std::literals::chrono_literals;
 namespace dsn {
 namespace chrono {
 
-    class duration;
+    class dsnutil_cpp_chrono_EXPORT duration;
 
-    class time_point : public clock_type::time_point {
+    class dsnutil_cpp_chrono_EXPORT time_point : public clock_type::time_point {
     public:
         time_point();
         time_point(const dsn::chrono::duration& d);
