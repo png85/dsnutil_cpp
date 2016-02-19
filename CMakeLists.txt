@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.1)
 
 set(dsnutil_cpp_VERSION_MAJOR 0)
 set(dsnutil_cpp_VERSION_MINOR 99)
-set(dsnutil_cpp_VERSION_PATCH 21)
+set(dsnutil_cpp_VERSION_PATCH 22)
 
 #
 # General build options
