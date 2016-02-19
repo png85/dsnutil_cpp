@@ -17,6 +17,7 @@ option(dsnutil_cpp_WITH_TESTS "Enable tests for dsnutil_cpp" ON)
 # Optional libraries
 option(dsnutil_cpp_WITH_BASE64 "Build libdsnutil_cpp-base64" ON) # base64 encoder/decoder functions
 option(dsnutil_cpp_WITH_CHRONO "Build libdsnutil_cpp-chrono" ON) # shortcuts for std::chrono::high_resolution_clock
+option(dsnutil_cpp_WITH_EVENT "Build libdsnutil_cpp-event" ON)   # event/signal stuff
 option(dsnutil_cpp_WITH_LOG "Build libdsnutil_cpp-log" ON)       # Boost.Log-based logging helpers
 
 
